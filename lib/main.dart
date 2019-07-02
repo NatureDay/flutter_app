@@ -103,6 +103,9 @@ class RandomWordsState extends State<RandomWords> {
     );
   }
 
+  /**
+   * 导航跳转
+   */
   void _pushSaved() {
     Navigator.of(context).push(
       new MaterialPageRoute(
