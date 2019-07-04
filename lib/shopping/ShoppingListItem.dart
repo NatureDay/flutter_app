@@ -22,13 +22,11 @@ class ShoppingListItem extends StatelessWidget {
     // The theme depends on the BuildContext because different parts of the tree
     // can have different themes.  The BuildContext indicates where the build is
     // taking place and therefore which theme to use.
-
     return inCart ? Colors.black54 : Theme.of(context).primaryColor;
   }
 
   TextStyle _getTextStyle(BuildContext context) {
     if (!inCart) return null;
-
     return new TextStyle(
       color: Colors.black54,
       decoration: TextDecoration.lineThrough,
