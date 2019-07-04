@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(
     new Container(
+      width: 300,
+      height: 800,
       decoration: new BoxDecoration(
         color: Colors.blue,
       ),
