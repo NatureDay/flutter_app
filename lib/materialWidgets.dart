@@ -17,10 +17,7 @@ class TutorialHome extends StatelessWidget {
     return new Scaffold(
       appBar: new AppBar(
         leading: new IconButton(
-          icon: new Icon(
-            Icons.menu,
-            color: Colors.white,
-          ),
+          icon: new Icon(Icons.menu, color: Colors.white),
           tooltip: 'Navigation menu',
           onPressed: null,
         ),
