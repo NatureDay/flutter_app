@@ -64,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             new Container(
                 width: double.infinity,
-                constraints: new BoxConstraints(),
+                constraints: new BoxConstraints(minWidth: 200),
                 decoration: new BoxDecoration(color: Colors.black),
                 padding: const EdgeInsets.all(16),
                 child: new Align(
