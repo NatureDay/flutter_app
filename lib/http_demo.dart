@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
 
 void main() {
   runApp(new MyApp());
@@ -31,8 +32,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  void _doGet() {
+  void _doGet() async {
     print("-------_doGet-----------");
+    Dio dio = new Dio();
+    Response response = await dio.get("https://www.google.com/");
+    print(response.data);
   }
 
   void _doPost() {
@@ -55,12 +59,16 @@ class _MyHomePageState extends State<MyHomePage> {
             new Container(
               decoration: new BoxDecoration(color: Colors.grey),
               padding: const EdgeInsets.all(16),
-              child: new GestureDetector(
-                child: new Text(
-                  'GET',
-                  style: new TextStyle(color: Colors.black, fontSize: 20),
+              child: new FittedBox(
+                alignment: Alignment.bottomRight,
+                fit: BoxFit.contain,
+                child: new GestureDetector(
+                  child: new Text(
+                    'GET',
+                    style: new TextStyle(color: Colors.black, fontSize: 20),
+                  ),
+                  onTap: _doGet,
                 ),
-                onTap: _doGet,
               ),
             ),
             new Container(
