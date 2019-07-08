@@ -50,9 +50,10 @@ class _MyHomePageState extends State<MyHomePage> {
         child: new Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           mainAxisSize: MainAxisSize.max,
-//          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             new Container(
+              decoration: new BoxDecoration(color: Colors.grey),
               padding: const EdgeInsets.all(16),
               child: new GestureDetector(
                 child: new Text(
@@ -65,10 +66,10 @@ class _MyHomePageState extends State<MyHomePage> {
             new Container(
                 width: double.infinity,
                 constraints: new BoxConstraints(minWidth: 200),
-                decoration: new BoxDecoration(color: Colors.black),
+                decoration: new BoxDecoration(color: Colors.grey),
                 padding: const EdgeInsets.all(16),
                 child: new Align(
-                  alignment: Alignment.centerRight,
+                  alignment: Alignment.center,
                   child: new GestureDetector(
                     child: new Text(
                       'POST',
