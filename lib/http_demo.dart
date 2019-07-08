@@ -48,6 +48,9 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: new Center(
         child: new Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisSize: MainAxisSize.min,
+//          crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
             new Container(
               padding: const EdgeInsets.all(16),
@@ -60,14 +63,19 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             new Container(
+                width: double.infinity,
+                constraints: new BoxConstraints(),
                 decoration: new BoxDecoration(color: Colors.black),
                 padding: const EdgeInsets.all(16),
-                child: new GestureDetector(
-                  child: new Text(
-                    'POST',
-                    style: new TextStyle(color: Colors.red, fontSize: 20),
+                child: new Align(
+                  alignment: Alignment.centerRight,
+                  child: new GestureDetector(
+                    child: new Text(
+                      'POST',
+                      style: new TextStyle(color: Colors.red, fontSize: 20),
+                    ),
+                    onTap: _doPost,
                   ),
-                  onTap: _doPost,
                 )),
           ],
         ),
