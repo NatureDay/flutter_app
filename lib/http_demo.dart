@@ -35,8 +35,8 @@ class _MyHomePageState extends State<MyHomePage> {
   void _doGet() async {
     print("-------_doGet-----------");
     Dio dio = new Dio();
-    Response response = await dio.get("https://www.google.com/");
-    print(response.data);
+    Response response = await dio.get("https://www.baidu.com/");
+    print("----_doGet-----response--: " + response.data);
   }
 
   void _doPost() {
