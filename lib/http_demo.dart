@@ -60,6 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             new Container(
+                decoration: new BoxDecoration(color: Colors.black),
                 padding: const EdgeInsets.all(16),
                 child: new GestureDetector(
                   child: new Text(
