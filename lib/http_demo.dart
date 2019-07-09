@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
+import 'dart:convert';
+import 'package:flutter_app/model/user.dart';
+
 void main() {
   runApp(new MyApp());
 }
@@ -36,11 +39,17 @@ class _MyHomePageState extends State<MyHomePage> {
     print("-------_doGet-----------");
     Dio dio = new Dio();
     Response response = await dio.get("https://www.baidu.com/");
-    print("----_doGet-----response--: " + response.data);
+    print("----_doGet-----response--: " + response.toString());
   }
 
   void _doPost() {
     print("-------_doPost-----------");
+    Object user = new User("张三", "66666666666");
+    String sss = json.encode(user);
+    print("-------_doPost-------111===" + sss);
+
+    dynamic sssss = json.decode(sss);
+    print("-------_doPost-------222===" + sssss.toString());
   }
 
   @override

@@ -1,0 +1,83 @@
+import 'package:dio/dio.dart';
+import 'package:flutter_app/app/config.dart';
+
+class ApiResponse<T> {
+  int code;
+  T data;
+  String message;
+}
+
+/**
+ * http请求封装类
+ */
+class HttpUtil {
+  static final int _TIMEOUT_CONNECT = 30 * 1000;
+  static final int _TIMEOUT_RECEIVE = 60 * 1000;
+
+  static final String GET = "get";
+  static final String POST = "post";
+
+  static HttpUtil _httpUtil;
+
+  Dio _dio;
+
+  static HttpUtil getInstance() {
+    if (_httpUtil == null) {
+      _httpUtil = new HttpUtil();
+    }
+    return _httpUtil;
+  }
+
+  HttpUtil() {
+    _dio = new Dio(_initOpions());
+  }
+
+  BaseOptions _initOpions() {
+    return new BaseOptions(
+      baseUrl: AppConfig.baseUrl,
+      connectTimeout: _TIMEOUT_CONNECT,
+      receiveTimeout: _TIMEOUT_RECEIVE,
+    );
+  }
+
+  Future<Response<ApiResponse<T>>> get<T>(
+    String path, {
+    Map<String, dynamic> queryParameters,
+  }) async {
+    return _request(
+      path,
+      method: GET,
+      queryParameters: queryParameters,
+    );
+  }
+
+  Future<Response<ApiResponse<T>>> post<T>(
+    String path, {
+    data,
+    Map<String, dynamic> queryParameters,
+  }) async {
+    return _request(
+      path,
+      method: POST,
+      data: data,
+      queryParameters: queryParameters,
+    );
+  }
+
+  Future<Response<ApiResponse<T>>> _request<T>(
+    String path, {
+    String method,
+    data,
+    Map<String, dynamic> queryParameters,
+  }) async {
+    method = method ?? GET;
+    Options options = new Options(method: method);
+    Response<ApiResponse<T>> response = await _dio.request(
+      path,
+      data: data,
+      queryParameters: queryParameters,
+      options: options,
+    );
+    return response;
+  }
+}
