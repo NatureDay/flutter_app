@@ -40,6 +40,7 @@ class HttpUtil {
 
   HttpUtil() {
     _dio = new Dio(_initOpions());
+    _dio.interceptors.add(new TokenInterceptor());
   }
 
   BaseOptions _initOpions() {
@@ -89,5 +90,30 @@ class HttpUtil {
       options: options,
     );
     return response;
+  }
+}
+
+/*
+ TokenInterceptor 拦截请求，添加token
+ */
+class TokenInterceptor extends InterceptorsWrapper {
+  @override
+  onRequest(RequestOptions options) {
+    if (options.uri.toString().contains("auth/oauth/token"))
+      return super.onRequest(options);
+    Map<String, dynamic> newHeaders = options.headers ?? new Map();
+    newHeaders['token'] = 'f34r4323r2r324b32234t34t324t3';
+    options.headers = newHeaders;
+    return super.onRequest(options);
+  }
+
+  @override
+  onError(DioError err) {
+    return super.onError(err);
+  }
+
+  @override
+  onResponse(Response response) {
+    return super.onResponse(response);
   }
 }

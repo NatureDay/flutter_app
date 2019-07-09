@@ -3,5 +3,7 @@
  */
 class Api {
 
-  static final String login = '';
+  /// 登录
+  static final String login = 'auth/oauth/token';
+
 }

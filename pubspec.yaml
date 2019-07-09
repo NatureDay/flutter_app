@@ -26,6 +26,8 @@ dependencies:
   english_words: ^3.1.0
   transparent_image: ^1.0.0
   cached_network_image: ^1.0.0
+  # 本地存储
+  shared_preferences: ^0.5.3+2
   dio: ^2.1.0
   json_serializable: ^3.0.0
 
