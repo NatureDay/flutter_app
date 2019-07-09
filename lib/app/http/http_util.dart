@@ -5,6 +5,16 @@ class ApiResponse<T> {
   int code;
   T data;
   String message;
+
+  ApiResponse.fromJson(Map<String, dynamic> json)
+      : code = json['code'],
+        message = json['message'],
+        data = json['data'];
+
+  @override
+  String toString() {
+    return 'code: $code ,message: $message,data:$data';
+  }
 }
 
 /**
