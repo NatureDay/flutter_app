@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter_app/app/router/app_routes.dart';
+import 'package:flutter_app/app/page/logo.dart';
+
 void main() {
   runApp(new MyApp());
 }
@@ -19,11 +22,12 @@ class MyApp extends StatelessWidget {
 //          child: new RandomWords(),
 //        ),
 //      ),
-      title: 'Startup Name Generator',
+      title: 'flutter app demo',
       theme: new ThemeData(
         primaryColor: Colors.white,
       ),
-//      home: new RandomWords(),
+      home: new LogoPage(),
+      routes: AppRoutes.initRoutes(),
     );
   }
 }
