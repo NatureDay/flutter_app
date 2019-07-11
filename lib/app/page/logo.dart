@@ -55,14 +55,18 @@ class _LogoPageState extends State<LogoPage> with WidgetsBindingObserver {
   }
 
   void goNext() {
-    new Timer(const Duration(milliseconds: 3000), () {
-      if (AppUtil.isAppLogin()) {
-        print("-----------111-----------");
-        Navigator.pushNamed(context, AppRoutes.home);
-      } else {
-        print("-----------222-----------");
-        Navigator.pushNamed(context, AppRoutes.login);
-      }
-    });
+    try {
+      new Timer(const Duration(milliseconds: 3000), () {
+            if (AppUtil.isAppLogin()) {
+              print("-----------111-----------");
+              Navigator.pushNamed(context, AppRoutes.home);
+            } else {
+              print("-----------222-----------");
+              Navigator.pushNamed(context, AppRoutes.login);
+            }
+          });
+    } catch (e) {
+      print(e);
+    }
   }
 }
