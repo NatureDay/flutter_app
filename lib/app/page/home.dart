@@ -23,8 +23,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
-  void initState() {}
+  void initState() {
+    super.initState();
+  }
 
   @override
-  void dispose() {}
+  void dispose() {
+    super.dispose();
+  }
 }

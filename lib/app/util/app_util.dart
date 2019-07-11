@@ -10,9 +10,20 @@ class AppUtil {
 }
 
 class CommonUtil {
-  /// 判断应用是否已登录
-  static void startPage(BuildContext context, String routeName,
+
+  /// 页面跳转
+  static Future<T> push<T>(BuildContext context, Route<T> route) {
+    return Navigator.push(context, route);
+  }
+
+  /// 页面跳转
+  static Future<T> pushNamed<T>(BuildContext context, String routeName,
       {Object arguments}) {
-    Navigator.pushNamed(context, routeName, arguments: arguments);
+    return Navigator.pushNamed(context, routeName, arguments: arguments);
+  }
+
+  /// 页面返回
+  static bool pop<T>(BuildContext context, [T result]) {
+    return Navigator.pop(context, {result: result});
   }
 }

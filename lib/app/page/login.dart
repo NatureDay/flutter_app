@@ -23,8 +23,12 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   @override
-  void initState() {}
+  void initState() {
+    super.initState();
+  }
 
   @override
-  void dispose() {}
+  void dispose() {
+    super.dispose();
+  }
 }
