@@ -4,6 +4,8 @@ import 'dart:async';
 import 'package:flutter_app/app/util/app_util.dart';
 import 'package:flutter_app/app/router/app_routes.dart';
 
+import 'package:flutter_app/app/page/login.dart';
+
 class LogoPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
