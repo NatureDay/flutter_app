@@ -13,7 +13,6 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return new Scaffold(
-      appBar: new AppBar(title: new Text('登录')),
       body: new Container(
         width: double.infinity,
         height: double.infinity,
@@ -26,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
               margin: const EdgeInsets.all(50),
               child: Image.asset('assets/images/ic_login_logo.png',
                   fit: BoxFit.fill),
-            )
+            ),
           ],
         ),
       ),
