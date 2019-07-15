@@ -106,7 +106,6 @@ class HttpUtil {
 class TokenInterceptor extends InterceptorsWrapper {
   @override
   onRequest(RequestOptions options) {
-    print('----------options.uri==========' + options.uri.toString());
     if (options.uri.toString().contains("auth/oauth/token"))
       return super.onRequest(options);
     Map<String, dynamic> newHeaders = options.headers ?? new Map();

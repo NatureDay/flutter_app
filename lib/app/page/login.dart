@@ -98,8 +98,13 @@ class _LoginPageState extends State<LoginPage> {
     print("---------_controllerAccount----===" + _controllerAccount.text);
     print("---------_controllerPwd-----===" + _controllerPwd.text);
     Map<String, dynamic> queryParameters = new Map();
-//    queryParameters['username'] = _controllerAccount.text;
-//    queryParameters['password'] = _controllerPwd.text;
+    queryParameters['username'] = _controllerAccount.text;
+    queryParameters['password'] = _controllerPwd.text;
+    queryParameters['randomStr'] = new DateTime.now().millisecondsSinceEpoch;
+    queryParameters['grant_type'] = "password";
+    queryParameters['scope'] = "server";
+    queryParameters['type'] = "5";
+
     HttpUtil.instance.get(Api.login).then((value) {
       print("---------_onLoginPressed-----===" + value.toString());
     }, onError: (e) {
