@@ -47,6 +47,7 @@ class HttpUtil {
   HttpUtil() {
     _dio = new Dio(_initOpions());
     _dio.interceptors.add(new TokenInterceptor());
+    _dio.interceptors.add(new LogInterceptor());
   }
 
   BaseOptions _initOpions() {
