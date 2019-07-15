@@ -19,25 +19,25 @@ class _LoginPageState extends State<LoginPage> {
       body: new Container(
         width: double.infinity,
         height: double.infinity,
-        child: new Column(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            new Container(
+            Container(
               width: 100,
               height: 100,
               margin: const EdgeInsets.all(50),
               child: Image.asset('assets/images/ic_login_logo.png',
                   fit: BoxFit.fill),
             ),
-            new Form(
-                child: new Column(
+            Form(
+                child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                new Container(
+                Container(
                   margin: const EdgeInsets.fromLTRB(30, 50, 30, 10),
-                  child: new TextFormField(
+                  child: TextFormField(
                     controller: _controllerAccount,
-                    decoration: new InputDecoration(
+                    decoration: InputDecoration(
                       hintText: '输入账号',
                     ),
                     validator: (value) {
@@ -45,10 +45,10 @@ class _LoginPageState extends State<LoginPage> {
                     },
                   ),
                 ),
-                new Container(
+                Container(
                   margin: const EdgeInsets.fromLTRB(30, 10, 30, 20),
-                  child: new TextFormField(
-                    decoration: new InputDecoration(
+                  child: TextFormField(
+                    decoration: InputDecoration(
                       hintText: '输入密码',
                     ),
                     validator: (value) {
@@ -56,13 +56,11 @@ class _LoginPageState extends State<LoginPage> {
                     },
                   ),
                 ),
-                SizedBox(height: 10),
-                RaisedButton(
-                  onPressed: _onLoginPressed,
-                  textColor: Colors.white,
-                  padding: const EdgeInsets.all(0.0),
-                  child: Container(
-                    decoration: const BoxDecoration(
+                SizedBox(height: 20),
+                Container(
+                    width: 120,
+                    height: 50,
+                    decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: <Color>[
                           Color(0xFF0D47A1),
@@ -71,10 +69,13 @@ class _LoginPageState extends State<LoginPage> {
                         ],
                       ),
                     ),
-                    padding: const EdgeInsets.all(0.0),
-                    child: const Text('登 录', style: TextStyle(fontSize: 20)),
-                  ),
-                ),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        '登 录',
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                    ))
               ],
             ))
           ],
