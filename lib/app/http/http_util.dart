@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_app/app/config.dart';
 
+import 'package:flutter_app/app/app.dart';
+
 class ApiResponse<T> {
   int code;
   T data;
@@ -30,6 +32,10 @@ class HttpUtil {
   static HttpUtil _httpUtil;
 
   Dio _dio;
+
+  static HttpUtil get instance {
+    return getInstance();
+  }
 
   static HttpUtil getInstance() {
     if (_httpUtil == null) {
@@ -99,10 +105,11 @@ class HttpUtil {
 class TokenInterceptor extends InterceptorsWrapper {
   @override
   onRequest(RequestOptions options) {
+    print('----------options.uri==========' + options.uri.toString());
     if (options.uri.toString().contains("auth/oauth/token"))
       return super.onRequest(options);
     Map<String, dynamic> newHeaders = options.headers ?? new Map();
-    newHeaders['token'] = 'f34r4323r2r324b32234t34t324t3';
+    newHeaders['token'] = AppInfoHelper.instance.getAppToken();
     options.headers = newHeaders;
     return super.onRequest(options);
   }
