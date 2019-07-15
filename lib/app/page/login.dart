@@ -104,8 +104,8 @@ class _LoginPageState extends State<LoginPage> {
     queryParameters['grant_type'] = "password";
     queryParameters['scope'] = "server";
     queryParameters['type'] = "5";
-
-    HttpUtil.instance.get(Api.login).then((value) {
+    HttpUtil.instance.get(Api.login, queryParameters: queryParameters).then(
+        (value) {
       print("---------_onLoginPressed-----===" + value.toString());
     }, onError: (e) {
       print(e);

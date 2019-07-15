@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter_app/app/config.dart';
 
@@ -23,6 +24,9 @@ class ApiResponse<T> {
  * http请求封装类
  */
 class HttpUtil {
+  static final ContentType _FORM =
+      ContentType.parse("application/x-www-form-urlencoded");
+
   static final int _TIMEOUT_CONNECT = 30 * 1000;
   static final int _TIMEOUT_RECEIVE = 60 * 1000;
 
@@ -89,7 +93,8 @@ class HttpUtil {
     Map<String, dynamic> queryParameters,
   }) async {
     method = method ?? GET;
-    Options options = new Options(method: method);
+    Options options = new Options(
+        method: method, contentType: method == GET ? _FORM : ContentType.json);
     Response<ApiResponse<T>> response = await _dio.request(
       path,
       data: data,
