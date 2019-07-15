@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter_app/app/api/api.dart';
+import 'package:flutter_app/app/http/http_util.dart';
+
+/// 登录
 class LoginPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -48,6 +52,8 @@ class _LoginPageState extends State<LoginPage> {
                 Container(
                   margin: const EdgeInsets.fromLTRB(30, 10, 30, 20),
                   child: TextFormField(
+                    obscureText: true,
+                    controller: _controllerPwd,
                     decoration: InputDecoration(
                       hintText: '输入密码',
                     ),
@@ -57,7 +63,9 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 SizedBox(height: 20),
-                Container(
+                GestureDetector(
+                  onTap: _onLoginPressed,
+                  child: Container(
                     width: 120,
                     height: 50,
                     decoration: BoxDecoration(
@@ -75,7 +83,9 @@ class _LoginPageState extends State<LoginPage> {
                         '登 录',
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
-                    ))
+                    ),
+                  ),
+                ),
               ],
             ))
           ],
@@ -84,7 +94,18 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void _onLoginPressed() {}
+  void _onLoginPressed() {
+    print("---------_controllerAccount----===" + _controllerAccount.text);
+    print("---------_controllerPwd-----===" + _controllerPwd.text);
+    Map<String, dynamic> queryParameters = new Map();
+//    queryParameters['username'] = _controllerAccount.text;
+//    queryParameters['password'] = _controllerPwd.text;
+    HttpUtil.getInstance().get(Api.login).then((value) {
+      print("---------_onLoginPressed-----===" + value.toString());
+    }, onError: (e) {
+      print(e);
+    });
+  }
 
   @override
   void initState() {
