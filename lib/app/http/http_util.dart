@@ -27,6 +27,11 @@ class HttpUtil {
   static final ContentType _FORM =
       ContentType.parse("application/x-www-form-urlencoded");
 
+  static final String _AUTHORIZATION = "Authorization";
+
+  static final String _PATH = "auth/oauth/token";
+  static final String _INIT_TOKEN = "Basic cWlhbm1vOnFpYW5tbw==";
+
   static final int _TIMEOUT_CONNECT = 30 * 1000;
   static final int _TIMEOUT_RECEIVE = 60 * 1000;
 
@@ -111,10 +116,14 @@ class HttpUtil {
 class TokenInterceptor extends InterceptorsWrapper {
   @override
   onRequest(RequestOptions options) {
-    if (options.uri.toString().contains("auth/oauth/token"))
+    if (options.uri.toString().contains(HttpUtil._PATH)) {
+      Map<String, dynamic> newHeaders = options.headers ?? new Map();
+      newHeaders[HttpUtil._AUTHORIZATION] = HttpUtil._INIT_TOKEN;
+      options.headers = newHeaders;
       return super.onRequest(options);
+    }
     Map<String, dynamic> newHeaders = options.headers ?? new Map();
-    newHeaders['token'] = AppInfoHelper.instance.getAppToken();
+    newHeaders[HttpUtil._AUTHORIZATION] = AppInfoHelper.instance.getAppToken();
     options.headers = newHeaders;
     return super.onRequest(options);
   }
