@@ -163,3 +163,17 @@ class ResultErrorException implements Exception {
     return 'ResultErrorException{message: $message}';
   }
 }
+
+/// 请求结果异常 exception
+class NetworkErrorHelper {
+  static String getMessage(Exception e) {
+    if (e == null) return "";
+    if (e is ResultErrorException) {
+      return e.message;
+    } else if (e is FormatException) {
+      return "数据解析异常";
+    } else {
+      return "未知异常";
+    }
+  }
+}
