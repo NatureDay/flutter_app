@@ -1,18 +1,29 @@
 import 'dart:io';
+import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter_app/app/config.dart';
-
 import 'package:flutter_app/app/app.dart';
+import 'package:flutter_app/app/util/log_util.dart';
 
 class ApiResponse<T> {
   int code;
   T data;
   String message;
 
+  ApiResponse(this.code, this.data, this.message);
+
   ApiResponse.fromJson(Map<String, dynamic> json)
       : code = json['code'],
         message = json['message'],
         data = json['data'];
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> result = new Map();
+    result['code'] = this.code;
+    result['message'] = this.message;
+    result['data'] = this.data;
+    return result;
+  }
 
   @override
   String toString() {
@@ -67,7 +78,7 @@ class HttpUtil {
     );
   }
 
-  Future<Response<ApiResponse<T>>> get<T>(
+  Future<T> get<T>(
     String path, {
     Map<String, dynamic> queryParameters,
   }) async {
@@ -78,7 +89,7 @@ class HttpUtil {
     );
   }
 
-  Future<Response<ApiResponse<T>>> post<T>(
+  Future<T> post<T>(
     String path, {
     data,
     Map<String, dynamic> queryParameters,
@@ -91,7 +102,7 @@ class HttpUtil {
     );
   }
 
-  Future<Response<ApiResponse<T>>> _request<T>(
+  Future<T> _request<T>(
     String path, {
     String method,
     data,
@@ -99,14 +110,26 @@ class HttpUtil {
   }) async {
     method = method ?? GET;
     Options options = new Options(
-        method: method, contentType: method == GET ? _FORM : ContentType.json);
-    Response<ApiResponse<T>> response = await _dio.request(
+        method: method,
+        contentType: method == GET ? _FORM : ContentType.json,
+        responseType: ResponseType.plain);
+    Response response = await _dio.request(
       path,
       data: data,
       queryParameters: queryParameters,
       options: options,
     );
-    return response;
+    LogUtil.i("------http result: $response");
+    if (response.statusCode == 200) {
+      ApiResponse<T> apiResponse =
+          ApiResponse.fromJson(json.decode(response.data));
+      if (apiResponse.code == 0) {
+        return apiResponse.data;
+      } else {
+        throw ResultErrorException(apiResponse.message);
+      }
+    }
+    return null;
   }
 }
 
@@ -127,14 +150,16 @@ class TokenInterceptor extends InterceptorsWrapper {
     options.headers = newHeaders;
     return super.onRequest(options);
   }
+}
+
+/// 请求结果异常 exception
+class ResultErrorException implements Exception {
+  final String message;
+
+  ResultErrorException(this.message);
 
   @override
-  onError(DioError err) {
-    return super.onError(err);
-  }
-
-  @override
-  onResponse(Response response) {
-    return super.onResponse(response);
+  String toString() {
+    return 'ResultErrorException{message: $message}';
   }
 }

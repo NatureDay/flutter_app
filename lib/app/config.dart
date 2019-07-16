@@ -3,6 +3,8 @@
  */
 class AppConfig {
 
+  static final bool DEBUG = true;
+
   /// 开发环境
   static final String _BASEURL_DEV = "http://192.168.5.184:9999/";
 
