@@ -110,7 +110,6 @@ class _LoginPageState extends State<LoginPage> {
         .post<Map<String, dynamic>>(Api.login, queryParameters: queryParameters)
         .then((value) {}, onError: (e) {
       AlertUtil.showToast(context, NetworkErrorHelper.getMessage(e));
-      print(e);
     });
   }
 
