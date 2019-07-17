@@ -17,7 +17,8 @@ class EncryptUtil {
       }
       List<int> utf8List = utf8.encode(string);
       Uint8List result = digest.process(Uint8List.fromList(utf8List));
-      return utf8.decode(result);
+      LogUtil.i(result);
+      return utf8.decode(result, allowMalformed: true);
     } catch (e) {
       print(e);
     }
