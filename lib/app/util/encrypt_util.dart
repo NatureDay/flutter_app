@@ -1,6 +1,7 @@
 import 'dart:convert';
-
+import 'dart:typed_data';
 import 'package:flutter_app/app/util/log_util.dart';
+import 'package:pointycastle/export.dart';
 
 /// 加密工具类
 class EncryptUtil {
@@ -9,22 +10,16 @@ class EncryptUtil {
   }
 
   static String sha(String string, String alg) {
-    LogUtil.i("-----sha---111: " + utf8.encode(string).toString());
-
-//    try {
-//      Digest digest;
-//      if (alg == "sha-512") {
-//        digest = new SHA512Digest();
-//      }
-//      LogUtil.i("-----sha---111: " + utf8.encode(string).toString());
-//      LogUtil.i(
-//          "-----sha---222: " + digest.process(utf8.encode(string)).toString());
-//      LogUtil.i("-----sha---333: " +
-//          utf8.decode(digest.process(utf8.encode(string))));
-//      return utf8.decode(digest.process(utf8.encode(string)));
-//    } catch (e) {
-//      print(e);
-//    }
-    return null;
+    try {
+      Digest digest;
+      if (alg == "sha-512") {
+        digest = new SHA512Digest();
+      }
+      List<int> utf8List = utf8.encode(string);
+      Uint8List result = digest.process(Uint8List.fromList(utf8List));
+      return utf8.decode(result);
+    } catch (e) {
+      print(e);
+    }
   }
 }
