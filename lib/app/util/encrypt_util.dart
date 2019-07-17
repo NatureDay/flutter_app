@@ -1,15 +1,30 @@
 import 'dart:convert';
-import 'package:crypto/crypto.dart';
-import 'package:crypto/src/digest_sink.dart';
+
+import 'package:flutter_app/app/util/log_util.dart';
 
 /// 加密工具类
-class EncryptUtil{
+class EncryptUtil {
+  static String sha512(String string) {
+    return sha(string, "sha-512");
+  }
 
-   static String sha(String string, String alg) {
+  static String sha(String string, String alg) {
+    LogUtil.i("-----sha---111: " + utf8.encode(string).toString());
 
-//     var hmacSha256 = new Hmac(sha256, key); // HMAC-SHA256
-//     var digest = hmacSha256.convert(utf8.encode(string));
-   }
-
-
+//    try {
+//      Digest digest;
+//      if (alg == "sha-512") {
+//        digest = new SHA512Digest();
+//      }
+//      LogUtil.i("-----sha---111: " + utf8.encode(string).toString());
+//      LogUtil.i(
+//          "-----sha---222: " + digest.process(utf8.encode(string)).toString());
+//      LogUtil.i("-----sha---333: " +
+//          utf8.decode(digest.process(utf8.encode(string))));
+//      return utf8.decode(digest.process(utf8.encode(string)));
+//    } catch (e) {
+//      print(e);
+//    }
+    return null;
+  }
 }

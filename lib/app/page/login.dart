@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/app/api/api.dart';
 import 'package:flutter_app/app/http/http_util.dart';
 import 'package:flutter_app/app/util/alert_util.dart';
+import 'package:flutter_app/app/util/encrypt_util.dart';
 
 /// 登录
 class LoginPage extends StatefulWidget {
@@ -100,7 +101,7 @@ class _LoginPageState extends State<LoginPage> {
     print("---------_controllerPwd-----===" + _controllerPwd.text);
     Map<String, dynamic> queryParameters = new Map();
     queryParameters['username'] = _controllerAccount.text;
-    queryParameters['password'] = _controllerPwd.text;
+    queryParameters['password'] = EncryptUtil.sha512(_controllerPwd.text);
 //        "ba3253876aed6bc22d4a6ff53d8406c6ad864195ed144ab5c87621b6c233b548baeae6956df346ec8c17f5ea10f35ee3cbc514797ed7ddd3145464e2a0bab413";
     queryParameters['randomStr'] = new DateTime.now().millisecondsSinceEpoch;
     queryParameters['grant_type'] = "password";
@@ -109,7 +110,7 @@ class _LoginPageState extends State<LoginPage> {
     HttpUtil.instance
         .post<Map<String, dynamic>>(Api.login, queryParameters: queryParameters)
         .then((value) {}, onError: (e) {
-      AlertUtil.showToast(context, NetworkErrorHelper.getMessage(e));
+      AlertUtil.showToast(NetworkErrorHelper.getMessage(e));
     });
   }
 
