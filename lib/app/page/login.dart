@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_app/app/api/api.dart';
 import 'package:flutter_app/app/http/http_util.dart';
+import 'package:flutter_app/app/util/alert_util.dart';
 
 /// 登录
 class LoginPage extends StatefulWidget {
@@ -108,6 +109,7 @@ class _LoginPageState extends State<LoginPage> {
     HttpUtil.instance
         .post<Map<String, dynamic>>(Api.login, queryParameters: queryParameters)
         .then((value) {}, onError: (e) {
+      AlertUtil.showToast(context, NetworkErrorHelper.getMessage(e));
       print(e);
     });
   }
