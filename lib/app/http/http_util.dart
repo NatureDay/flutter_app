@@ -182,9 +182,12 @@ class ResultException implements Exception {
 class NetworkErrorHelper {
   static String getMessage(Exception e) {
     if (e == null) return "";
-    if (e is SocketException) {
-      return "网络异常，请检查网络后重新尝试";
-    } else if (e is DioError) {
+    if (e is DioError) {
+      if (e.type == DioErrorType.DEFAULT) {
+        if (e.error is SocketException) {
+          return "网络异常，请检查网络后重新尝试";
+        }
+      }
       Response response = e.response;
       if (response == null) {
         return e.toString();
