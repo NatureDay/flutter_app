@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:flutter_app/app/util/log_util.dart';
-import 'package:pointycastle/export.dart';
+import 'package:pointycastle/digests/sha512.dart';
+import 'package:pointycastle/pointycastle.dart';
 
 /// 加密工具类
 class EncryptUtil {
@@ -18,9 +19,12 @@ class EncryptUtil {
       List<int> utf8List = utf8.encode(string);
       Uint8List result = digest.process(Uint8List.fromList(utf8List));
       LogUtil.i(result);
-      return utf8.decode(result);
+      String ss = "";
+      result.forEach((num) => ss = ss + num.toRadixString(16));
+      return ss.toLowerCase();
     } catch (e) {
       print(e);
     }
+    return null;
   }
 }
