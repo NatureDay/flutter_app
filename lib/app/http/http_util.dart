@@ -54,10 +54,10 @@ class HttpUtil {
   Dio _dio;
 
   static HttpUtil get instance {
-    return getInstance();
+    return _getInstance();
   }
 
-  static HttpUtil getInstance() {
+  static HttpUtil _getInstance() {
     if (_httpUtil == null) {
       _httpUtil = new HttpUtil();
     }
@@ -126,10 +126,11 @@ class HttpUtil {
       if (apiResponse.code == 0) {
         return apiResponse.data;
       } else {
-        throw ResultErrorException(apiResponse.message);
+        throw ResultException(apiResponse.message);
       }
+    } else {
+      throw RequestException(response.statusCode, response.statusMessage);
     }
-    return null;
   }
 }
 
@@ -152,15 +153,28 @@ class TokenInterceptor extends InterceptorsWrapper {
   }
 }
 
-/// 请求结果异常 exception
-class ResultErrorException implements Exception {
+/// 请求异常 exception
+class RequestException implements Exception {
+  final int code;
   final String message;
 
-  ResultErrorException(this.message);
+  RequestException(this.code, this.message);
 
   @override
   String toString() {
-    return 'ResultErrorException{message: $message}';
+    return 'RequestException{code: $code, message: $message}';
+  }
+}
+
+/// 请求结果异常 exception
+class ResultException implements Exception {
+  final String message;
+
+  ResultException(this.message);
+
+  @override
+  String toString() {
+    return 'ResultException{message: $message}';
   }
 }
 
@@ -168,12 +182,33 @@ class ResultErrorException implements Exception {
 class NetworkErrorHelper {
   static String getMessage(Exception e) {
     if (e == null) return "";
-    if (e is ResultErrorException) {
+    if (e is SocketException) {
+      return "网络异常，请检查网络后重新尝试";
+    } else if (e is DioError) {
+      Response response = e.response;
+      if (response == null) {
+        return e.toString();
+      }
+      return processCode(response.statusCode);
+    } else if (e is RequestException) {
+      return processCode(e.code);
+    } else if (e is ResultException) {
       return e.message;
     } else if (e is FormatException) {
       return "数据解析异常";
     } else {
       return "未知异常";
+    }
+  }
+
+  static String processCode(int code) {
+    if (code == 504) {
+      return "请求超时，请检查网络后重新尝试";
+    } else if (code == 401) {
+//        notificationExitApp();
+      return "登录失效，请退出应用重新登录";
+    } else {
+      return "错误码：$code";
     }
   }
 }
