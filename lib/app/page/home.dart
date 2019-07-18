@@ -12,6 +12,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+
+    /// 获取传递参数
+    print(ModalRoute.of(context).settings.arguments);
+
     return new Scaffold(
       body: new Container(
         width: double.infinity,

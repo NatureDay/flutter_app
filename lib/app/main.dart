@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.white,
       ),
       home: new LogoPage(),
+      initialRoute: AppRoutes.logo,
       routes: AppRoutes.initRoutes(),
     );
   }

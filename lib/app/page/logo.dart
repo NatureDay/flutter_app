@@ -72,7 +72,8 @@ class _LogoPageState extends State<LogoPage> with WidgetsBindingObserver {
 //          );
 
           Navigator.pushNamedAndRemoveUntil(
-              context, AppRoutes.home, ModalRoute.withName(AppRoutes.home));
+              context, AppRoutes.home, ModalRoute.withName("/"),
+              arguments: "666");
         } else {
           print("-----------222-----------");
 //          Navigator.popAndPushNamed(context, AppRoutes.login);
@@ -83,9 +84,9 @@ class _LogoPageState extends State<LogoPage> with WidgetsBindingObserver {
 //                builder: (BuildContext context) => new LoginPage()),
 //            ModalRoute.withName(AppRoutes.login),
 //          );
-
           Navigator.pushNamedAndRemoveUntil(
-              context, AppRoutes.login, ModalRoute.withName(AppRoutes.login));
+              context, AppRoutes.login, ModalRoute.withName("/"),
+              arguments: "666");
         }
       });
     } catch (e) {
