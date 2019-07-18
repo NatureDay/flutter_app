@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/app/page/home.dart';
 
 import 'dart:async';
 import 'package:flutter_app/app/util/app_util.dart';
@@ -61,10 +62,30 @@ class _LogoPageState extends State<LogoPage> with WidgetsBindingObserver {
       new Timer(const Duration(milliseconds: 3000), () {
         if (AppUtil.isAppLogin()) {
           print("-----------111-----------");
-          Navigator.popAndPushNamed(context, AppRoutes.home);
+//          Navigator.popAndPushNamed(context, AppRoutes.home);
+
+//          Navigator.pushAndRemoveUntil(
+//            context,
+//            MaterialPageRoute(
+//                builder: (BuildContext context) => new HomePage()),
+//            ModalRoute.withName(AppRoutes.home),
+//          );
+
+          Navigator.pushNamedAndRemoveUntil(
+              context, AppRoutes.home, ModalRoute.withName(AppRoutes.home));
         } else {
           print("-----------222-----------");
-          Navigator.popAndPushNamed(context, AppRoutes.login);
+//          Navigator.popAndPushNamed(context, AppRoutes.login);
+
+//          Navigator.pushAndRemoveUntil(
+//            context,
+//            MaterialPageRoute(
+//                builder: (BuildContext context) => new LoginPage()),
+//            ModalRoute.withName(AppRoutes.login),
+//          );
+
+          Navigator.pushNamedAndRemoveUntil(
+              context, AppRoutes.login, ModalRoute.withName(AppRoutes.login));
         }
       });
     } catch (e) {
