@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 /// 用来做shared_preferences的存储
 class SpUtil {
+
   static SpUtil _instance;
 
   static Future<SpUtil> get instance async {
@@ -14,7 +15,7 @@ class SpUtil {
 
   SpUtil._();
 
-  Future _init() async {
+  void _init() async {
     _spf = await SharedPreferences.getInstance();
   }
 
