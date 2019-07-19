@@ -62,7 +62,7 @@ class _LogoPageState extends State<LogoPage> with WidgetsBindingObserver {
       new Timer(const Duration(milliseconds: 3000), () {
         if (AppUtil.isAppLogin()) {
           print("-----------111-----------");
-//          Navigator.popAndPushNamed(context, AppRoutes.home);
+          Navigator.popAndPushNamed(context, AppRoutes.home);
 
 //          Navigator.pushAndRemoveUntil(
 //            context,
@@ -71,12 +71,12 @@ class _LogoPageState extends State<LogoPage> with WidgetsBindingObserver {
 //            ModalRoute.withName(AppRoutes.home),
 //          );
 
-          Navigator.pushNamedAndRemoveUntil(
-              context, AppRoutes.home, ModalRoute.withName("/"),
-              arguments: "666");
+//          Navigator.pushNamedAndRemoveUntil(
+//              context, AppRoutes.home, ModalRoute.withName("/"),
+//              arguments: "666");
         } else {
           print("-----------222-----------");
-//          Navigator.popAndPushNamed(context, AppRoutes.login);
+          Navigator.popAndPushNamed(context, AppRoutes.login);
 
 //          Navigator.pushAndRemoveUntil(
 //            context,
@@ -84,9 +84,9 @@ class _LogoPageState extends State<LogoPage> with WidgetsBindingObserver {
 //                builder: (BuildContext context) => new LoginPage()),
 //            ModalRoute.withName(AppRoutes.login),
 //          );
-          Navigator.pushNamedAndRemoveUntil(
-              context, AppRoutes.login, ModalRoute.withName("/"),
-              arguments: "666");
+//          Navigator.pushNamedAndRemoveUntil(
+//              context, AppRoutes.login, ModalRoute.withName("/"),
+//              arguments: "666");
         }
       });
     } catch (e) {

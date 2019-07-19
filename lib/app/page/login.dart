@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/app/api/api.dart';
 import 'package:flutter_app/app/app.dart';
 import 'package:flutter_app/app/http/http_util.dart';
+import 'package:flutter_app/app/router/app_routes.dart';
 import 'package:flutter_app/app/util/alert_util.dart';
 import 'package:flutter_app/app/util/encrypt_util.dart';
 
@@ -114,6 +115,7 @@ class _LoginPageState extends State<LoginPage> {
         .post<Map<String, dynamic>>(Api.login, queryParameters: queryParameters)
         .then((value) {
       AppInfoHelper.instance.saveAppLoginInfo(value);
+      Navigator.popAndPushNamed(context, AppRoutes.home);
     }, onError: (e) {
       AlertUtil.showToast(NetworkErrorHelper.getMessage(e));
     });
