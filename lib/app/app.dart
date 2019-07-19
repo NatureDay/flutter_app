@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter_app/app/util/log_util.dart';
 import 'package:flutter_app/app/util/shared_preferences.dart';
 
 ///  应用token信息处理，包括登录之后token信息的存储与读取，删除等
@@ -144,16 +143,28 @@ class AppInfoHelper {
    * 初始化应用数据，包括登录数据与用户数据
    */
   void initAppData() {
-    initAppLoginInfo();
-    initUserInfo();
+    SpUtil.instance.then((value) {
+      String loginInfo = value.getString(APP_LOGIN_INFO);
+      this._loginInfo = json.decode(loginInfo);
+      String userInfo = value.getString(APP_USER_INFO);
+      this._userInfo = json.decode(userInfo);
+    }, onError: (e) {
+      print(e);
+    });
   }
 
   /**
    * 清除应用数据，通常用于退出登录
    */
   void clearAppData() {
-    clearAppLoginInfo();
-    clearUserInfo();
+    this._loginInfo = null;
+    this._userInfo = null;
+    SpUtil.instance.then((value) {
+      value.remove(APP_LOGIN_INFO);
+      value.remove(APP_USER_INFO);
+    }, onError: (e) {
+      print(e);
+    });
   }
 
   /**

@@ -124,7 +124,6 @@ class _LoginPageState extends State<LoginPage> {
 
   void _getUserInfo() {
     HttpUtil.instance.get<Map<String, dynamic>>(Api.userInfo).then((value) {
-      LogUtil.i("-------_getUserInfo-======$value");
       AppInfoHelper.instance.saveUserInfo(value);
       Navigator.popAndPushNamed(context, AppRoutes.home);
     }, onError: (e) {
