@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/app/app.dart';
 
 import 'package:flutter_app/app/router/app_routes.dart';
 import 'package:flutter_app/app/page/logo.dart';
@@ -7,9 +8,18 @@ void main() {
   runApp(new MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return new _MyAppState();
+  }
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
+    // TODO: implement build
     return new MaterialApp(
 //      title: 'Welcome to Flutter',
 //      home: new Scaffold(
@@ -30,5 +40,11 @@ class MyApp extends StatelessWidget {
       initialRoute: AppRoutes.logo,
       routes: AppRoutes.initRoutes(),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    AppInfoHelper.instance.initAppData();
   }
 }

@@ -6,6 +6,7 @@ import 'package:flutter_app/app/http/http_util.dart';
 import 'package:flutter_app/app/router/app_routes.dart';
 import 'package:flutter_app/app/util/alert_util.dart';
 import 'package:flutter_app/app/util/encrypt_util.dart';
+import 'package:flutter_app/app/util/log_util.dart';
 
 /// 登录
 class LoginPage extends StatefulWidget {
@@ -115,6 +116,16 @@ class _LoginPageState extends State<LoginPage> {
         .post<Map<String, dynamic>>(Api.login, queryParameters: queryParameters)
         .then((value) {
       AppInfoHelper.instance.saveAppLoginInfo(value);
+      _getUserInfo();
+    }, onError: (e) {
+      AlertUtil.showToast(NetworkErrorHelper.getMessage(e));
+    });
+  }
+
+  void _getUserInfo() {
+    HttpUtil.instance.get<Map<String, dynamic>>(Api.userInfo).then((value) {
+      LogUtil.i("-------_getUserInfo-======$value");
+      AppInfoHelper.instance.saveUserInfo(value);
       Navigator.popAndPushNamed(context, AppRoutes.home);
     }, onError: (e) {
       AlertUtil.showToast(NetworkErrorHelper.getMessage(e));

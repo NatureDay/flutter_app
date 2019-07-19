@@ -7,7 +7,7 @@ class SpUtil {
   static SpUtil _instance;
 
   static Future<SpUtil> get instance async {
-    return await getInstance();
+    return await _getInstance();
   }
 
   static SharedPreferences _spf;
@@ -18,7 +18,7 @@ class SpUtil {
     _spf = await SharedPreferences.getInstance();
   }
 
-  static Future<SpUtil> getInstance() async {
+  static Future<SpUtil> _getInstance() async {
     if (_instance == null) {
       _instance = new SpUtil._();
       await _instance._init();

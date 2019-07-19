@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter_app/app/util/log_util.dart';
 import 'package:flutter_app/app/util/shared_preferences.dart';
 
 ///  应用token信息处理，包括登录之后token信息的存储与读取，删除等
@@ -17,10 +18,10 @@ class AppInfoHelper {
   Map<String, dynamic> _userInfo;
 
   static AppInfoHelper get instance {
-    return getInstance();
+    return _getInstance();
   }
 
-  static AppInfoHelper getInstance() {
+  static AppInfoHelper _getInstance() {
     if (_sInstance == null) {
       _sInstance = new AppInfoHelper();
     }
