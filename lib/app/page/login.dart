@@ -7,7 +7,6 @@ import 'package:flutter_app/app/util/encrypt_util.dart';
 
 /// 登录
 class LoginPage extends StatefulWidget {
-
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
