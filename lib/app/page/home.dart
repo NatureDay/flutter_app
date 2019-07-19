@@ -12,16 +12,14 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-
-    /// 获取传递参数
-    print(ModalRoute.of(context).settings.arguments);
-
-    return new Scaffold(
-      body: new Container(
+    return Scaffold(
+      body: Container(
         width: double.infinity,
         height: double.infinity,
-        child:
-            new Image.asset('assets/images/bg_logo.png', fit: BoxFit.contain),
+        child: Align(
+          alignment: Alignment.center,
+          child: Text("首页"),
+        ),
       ),
     );
   }
