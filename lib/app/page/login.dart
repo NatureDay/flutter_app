@@ -8,6 +8,8 @@ import 'package:flutter_app/app/util/alert_util.dart';
 import 'package:flutter_app/app/util/encrypt_util.dart';
 import 'package:flutter_app/app/util/log_util.dart';
 
+import 'home.dart';
+
 /// 登录
 class LoginPage extends StatefulWidget {
   @override
@@ -125,10 +127,25 @@ class _LoginPageState extends State<LoginPage> {
   void _getUserInfo() {
     HttpUtil.instance.get<Map<String, dynamic>>(Api.userInfo).then((value) {
       AppInfoHelper.instance.saveUserInfo(value);
-      Navigator.popAndPushNamed(context, AppRoutes.home);
+      _goHome();
+      // Navigator.popAndPushNamed(context, AppRoutes.home);
     }, onError: (e) {
       AlertUtil.showToast(NetworkErrorHelper.getMessage(e));
     });
+  }
+
+  void _goHome() {
+    List<Map<String, dynamic>> data = new List();
+    for (int i = 0; i < 50; i++) {
+      data.add({"name": "姓名啊$i"});
+      data.add({"address": "地址是XXXXXXXXXX$i"});
+      data.add({"age": "$i"});
+    }
+    Navigator.pushAndRemoveUntil(
+        context,
+        new MaterialPageRoute(
+            builder: (BuildContext context) => new HomePage(data: data)),
+        ModalRoute.withName(AppRoutes.home));
   }
 
   @override

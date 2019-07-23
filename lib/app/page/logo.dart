@@ -62,8 +62,8 @@ class _LogoPageState extends State<LogoPage> with WidgetsBindingObserver {
       new Timer(const Duration(milliseconds: 3000), () {
         if (AppUtil.isAppLogin()) {
           print("-----------111-----------");
-          Navigator.popAndPushNamed(context, AppRoutes.home);
-
+          // Navigator.popAndPushNamed(context, AppRoutes.home);
+          _goHome();
 //          Navigator.pushAndRemoveUntil(
 //            context,
 //            MaterialPageRoute(
@@ -92,5 +92,19 @@ class _LogoPageState extends State<LogoPage> with WidgetsBindingObserver {
     } catch (e) {
       print(e);
     }
+  }
+
+  void _goHome() {
+    List<Map<String, dynamic>> data = new List();
+    for (int i = 0; i < 50; i++) {
+      data.add({"name": "姓名啊$i"});
+      data.add({"address": "地址是XXXXXXXXXX$i"});
+      data.add({"age": "$i"});
+    }
+    Navigator.pushAndRemoveUntil(
+        context,
+        new MaterialPageRoute(
+            builder: (BuildContext context) => new HomePage(data: data)),
+        ModalRoute.withName(AppRoutes.home));
   }
 }
