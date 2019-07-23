@@ -50,10 +50,11 @@ class _HomePageState extends State<HomePage> {
 }
 
 class _DataListItem extends StatelessWidget {
+  const _DataListItem({Key key, Map<String, dynamic> item})
+      : this.item = item,
+        super(key: key);
 
   final Map<String, dynamic> item;
-
-  const _DataListItem({Key key, this.item}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
