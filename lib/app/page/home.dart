@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/app/util/alert_util.dart';
 
 /// 主页
 class HomePage extends StatefulWidget {
@@ -33,7 +34,10 @@ class _HomePageState extends State<HomePage> {
           )
         : ListView(
             children: widget.data.map((Map<String, dynamic> item) {
-              return _DataListItem(item: item);
+              return _DataListItem(
+                item: item,
+                itemCallback: _handleCallBack,
+              );
             }).toList(),
           );
   }
@@ -47,14 +51,21 @@ class _HomePageState extends State<HomePage> {
   void dispose() {
     super.dispose();
   }
+
+  void _handleCallBack(Map<String, dynamic> item) {
+    AlertUtil.showToast(item.toString());
+  }
 }
 
+typedef void ItemCallback(Map<String, dynamic> item);
+
 class _DataListItem extends StatelessWidget {
-  _DataListItem({Map<String, dynamic> item})
+  _DataListItem({Map<String, dynamic> item, this.itemCallback})
       : this.item = item,
         super(key: new ObjectKey(item));
 
   final Map<String, dynamic> item;
+  final ItemCallback itemCallback;
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +73,9 @@ class _DataListItem extends StatelessWidget {
     return ListTile(
       title: Text(item["name"]),
       subtitle: Text(item["address"]),
+      onTap: () {
+        itemCallback(item);
+      },
     );
   }
 }
