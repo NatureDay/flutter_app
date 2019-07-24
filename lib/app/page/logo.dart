@@ -97,9 +97,11 @@ class _LogoPageState extends State<LogoPage> with WidgetsBindingObserver {
   void _goHome() {
     List<Map<String, dynamic>> data = new List();
     for (int i = 0; i < 50; i++) {
-      data.add({"name": "姓名啊$i"});
-      data.add({"address": "地址是XXXXXXXXXX$i"});
-      data.add({"age": "$i"});
+      Map<String, dynamic> item = new Map();
+      item["name"] = "姓名啊$i";
+      item["address"] = "地址是XXXXXXXXXX$i";
+      item["age"] = "$i";
+      data.add(item);
     }
     Navigator.pushAndRemoveUntil(
         context,

@@ -50,9 +50,9 @@ class _HomePageState extends State<HomePage> {
 }
 
 class _DataListItem extends StatelessWidget {
-  const _DataListItem({Key key, Map<String, dynamic> item})
+  _DataListItem({Map<String, dynamic> item})
       : this.item = item,
-        super(key: key);
+        super(key: new ObjectKey(item));
 
   final Map<String, dynamic> item;
 
