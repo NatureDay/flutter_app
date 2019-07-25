@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/app/util/alert_util.dart';
 
+import 'info.dart';
+
 /// 主页
 class HomePage extends StatefulWidget {
   List<Map<String, dynamic>> data;
@@ -53,7 +55,15 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _handleCallBack(Map<String, dynamic> item) {
-    AlertUtil.showToast(item.toString());
+//    AlertUtil.showToast(item.toString());
+    Navigator.push(
+      context,
+      new MaterialPageRoute(
+        builder: (context) => new InfoPage(
+          data: item,
+        ),
+      ),
+    );
   }
 }
 
