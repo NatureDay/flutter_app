@@ -36,7 +36,6 @@ class _LogoPageState extends State<LogoPage> with WidgetsBindingObserver {
     super.initState();
     print("-------initState---------");
     WidgetsBinding.instance.addObserver(this);
-
     goNext();
   }
 
