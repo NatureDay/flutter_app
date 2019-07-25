@@ -76,8 +76,7 @@ class _LogoPageState extends State<LogoPage> with WidgetsBindingObserver {
 //              arguments: "666");
         } else {
           print("-----------222-----------");
-          Navigator.pop(context);
-          Navigator.pushNamed(context, AppRoutes.login);
+          Navigator.popAndPushNamed(context, AppRoutes.login);
 
 //          Navigator.pushAndRemoveUntil(
 //            context,
