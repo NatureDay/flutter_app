@@ -60,9 +60,11 @@ class _HomePageState extends State<HomePage> {
 typedef void ItemCallback(Map<String, dynamic> item);
 
 class _DataListItem extends StatelessWidget {
-  _DataListItem({Map<String, dynamic> item, this.itemCallback})
-      : this.item = item,
-        super(key: UniqueKey());
+  const _DataListItem({
+    Key key,
+    this.item,
+    this.itemCallback,
+  }) : super(key: key);
 
   final Map<String, dynamic> item;
   final ItemCallback itemCallback;
