@@ -145,9 +145,13 @@ class AppInfoHelper {
   void initAppData() {
     SpUtil.instance.then((value) {
       String loginInfo = value.getString(APP_LOGIN_INFO);
-      this._loginInfo = json.decode(loginInfo);
+      if (loginInfo != null) {
+        this._loginInfo = json.decode(loginInfo);
+      }
       String userInfo = value.getString(APP_USER_INFO);
-      this._userInfo = json.decode(userInfo);
+      if (userInfo != null) {
+        this._userInfo = json.decode(userInfo);
+      }
     }, onError: (e) {
       print(e);
     });

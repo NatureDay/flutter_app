@@ -72,11 +72,12 @@ class _LogoPageState extends State<LogoPage> with WidgetsBindingObserver {
 //          );
 
 //          Navigator.pushNamedAndRemoveUntil(
-//              context, AppRoutes.home, ModalRoute.withName("/"),
+//              context, AppRoutes.home, ModalRoute.withName(AppRoutes.home),
 //              arguments: "666");
         } else {
           print("-----------222-----------");
-          Navigator.popAndPushNamed(context, AppRoutes.login);
+          Navigator.pop(context);
+          Navigator.pushNamed(context, AppRoutes.login);
 
 //          Navigator.pushAndRemoveUntil(
 //            context,
@@ -85,7 +86,7 @@ class _LogoPageState extends State<LogoPage> with WidgetsBindingObserver {
 //            ModalRoute.withName(AppRoutes.login),
 //          );
 //          Navigator.pushNamedAndRemoveUntil(
-//              context, AppRoutes.login, ModalRoute.withName("/"),
+//              context, AppRoutes.login, ModalRoute.withName(AppRoutes.login),
 //              arguments: "666");
         }
       });
