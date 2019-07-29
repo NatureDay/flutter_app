@@ -18,6 +18,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  ScrollController _controller = new ScrollController();
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -36,7 +38,7 @@ class _HomePageState extends State<HomePage> {
             alignment: Alignment.center,
           )
         : RefreshIndicator(
-            onRefresh: doRefresh,
+            onRefresh: _doRefresh,
             child: ListView(
               children: widget.data.map((Map<String, dynamic> item) {
                 return _DataListItem(
@@ -44,6 +46,7 @@ class _HomePageState extends State<HomePage> {
                   itemCallback: _handleCallBack,
                 );
               }).toList(),
+              controller: _controller,
             ),
           );
   }
@@ -51,14 +54,21 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    _controller.addListener(() {
+      LogUtil.i("--------maxScrollExtent---======" +
+          _controller.position.maxScrollExtent.toString());
+      LogUtil.i("--------maxScrollExtent--pixels-======" +
+          _controller.position.pixels.toString());
+    });
   }
 
   @override
   void dispose() {
     super.dispose();
+    _controller.dispose();
   }
 
-  Future<void> doRefresh() async {
+  Future<void> _doRefresh() async {
     LogUtil.i("-------doRefresh--------");
   }
 
