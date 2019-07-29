@@ -44,60 +44,61 @@ class _LoginPageState extends State<LoginPage> {
                   fit: BoxFit.fill),
             ),
             Form(
-                child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  margin: const EdgeInsets.fromLTRB(30, 50, 30, 10),
-                  child: TextFormField(
-                    controller: _controllerAccount,
-                    decoration: InputDecoration(
-                      hintText: '输入账号',
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(30, 50, 30, 10),
+                    child: TextFormField(
+                      controller: _controllerAccount,
+                      decoration: InputDecoration(
+                        hintText: '输入账号',
+                      ),
+                      validator: (value) {
+                        return value.trim().length > 0 ? null : '用户名不能为空';
+                      },
                     ),
-                    validator: (value) {
-                      return value.trim().length > 0 ? null : '用户名不能为空';
-                    },
                   ),
-                ),
-                Container(
-                  margin: const EdgeInsets.fromLTRB(30, 10, 30, 20),
-                  child: TextFormField(
-                    obscureText: true,
-                    controller: _controllerPwd,
-                    decoration: InputDecoration(
-                      hintText: '输入密码',
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(30, 10, 30, 20),
+                    child: TextFormField(
+                      obscureText: true,
+                      controller: _controllerPwd,
+                      decoration: InputDecoration(
+                        hintText: '输入密码',
+                      ),
+                      validator: (value) {
+                        return value.trim().length > 0 ? null : '密码不能为空';
+                      },
                     ),
-                    validator: (value) {
-                      return value.trim().length > 0 ? null : '密码不能为空';
-                    },
                   ),
-                ),
-                SizedBox(height: 20),
-                GestureDetector(
-                  onTap: _onLoginPressed,
-                  child: Container(
-                    width: 120,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: <Color>[
-                          Color(0xFF0D47A1),
-                          Color(0xFF1976D2),
-                          Color(0xFF42A5F5),
-                        ],
+                  SizedBox(height: 20),
+                  GestureDetector(
+                    onTap: _onLoginPressed,
+                    child: Container(
+                      width: 120,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: <Color>[
+                            Color(0xFF0D47A1),
+                            Color(0xFF1976D2),
+                            Color(0xFF42A5F5),
+                          ],
+                        ),
+                      ),
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          '登 录',
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
                       ),
                     ),
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        '登 录',
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
-                    ),
                   ),
-                ),
-              ],
-            ))
+                ],
+              ),
+            ),
           ],
         ),
       ),
