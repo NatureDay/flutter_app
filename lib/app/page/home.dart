@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/app/util/alert_util.dart';
+import 'package:flutter_app/app/util/log_util.dart';
 
 import 'info.dart';
 
@@ -34,13 +35,16 @@ class _HomePageState extends State<HomePage> {
             child: Text("暂无数据 "),
             alignment: Alignment.center,
           )
-        : ListView(
-            children: widget.data.map((Map<String, dynamic> item) {
-              return _DataListItem(
-                item: item,
-                itemCallback: _handleCallBack,
-              );
-            }).toList(),
+        : RefreshIndicator(
+            onRefresh: doRefresh,
+            child: ListView(
+              children: widget.data.map((Map<String, dynamic> item) {
+                return _DataListItem(
+                  item: item,
+                  itemCallback: _handleCallBack,
+                );
+              }).toList(),
+            ),
           );
   }
 
@@ -52,6 +56,10 @@ class _HomePageState extends State<HomePage> {
   @override
   void dispose() {
     super.dispose();
+  }
+
+  Future<void> doRefresh() async {
+    LogUtil.i("-------doRefresh--------");
   }
 
   void _handleCallBack(Map<String, dynamic> item) {
