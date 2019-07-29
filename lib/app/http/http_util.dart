@@ -2,9 +2,10 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_app/app/config.dart';
-import 'package:flutter_app/app/app.dart';
-import 'package:flutter_app/app/util/log_util.dart';
+
+import '../app.dart';
+import '../config.dart';
+import '../util/log_util.dart';
 
 class ApiResponse<T> {
   int code;
