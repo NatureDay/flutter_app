@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_app/app/config.dart';
 import 'package:flutter_app/app/app.dart';
 import 'package:flutter_app/app/util/log_util.dart';
@@ -35,6 +36,9 @@ class ApiResponse<T> {
  * http请求封装类
  */
 class HttpUtil {
+  /// 标识是否用native方式请求
+  static final bool _isNative = false;
+
   static final ContentType _FORM =
       ContentType.parse("application/x-www-form-urlencoded");
 
@@ -51,7 +55,11 @@ class HttpUtil {
 
   static HttpUtil _httpUtil;
 
+  /// 网络请求dart实现
   Dio _dio;
+
+  /// 网络请求平台实现
+  MethodChannel _methodChannel;
 
   static HttpUtil get instance {
     return _getInstance();
@@ -65,9 +73,13 @@ class HttpUtil {
   }
 
   HttpUtil() {
-    _dio = new Dio(_initOpions());
-    _dio.interceptors.add(new TokenInterceptor());
-    _dio.interceptors.add(new LogInterceptor());
+    if (!_isNative) {
+      _dio = new Dio(_initOpions());
+      _dio.interceptors.add(new TokenInterceptor());
+      _dio.interceptors.add(new LogInterceptor());
+    } else {
+      _methodChannel = new MethodChannel('NativeHttpRequest');
+    }
   }
 
   BaseOptions _initOpions() {
@@ -113,23 +125,41 @@ class HttpUtil {
         method: method,
         contentType: method == GET ? _FORM : ContentType.json,
         responseType: ResponseType.plain);
-    Response response = await _dio.request(
-      path,
-      data: data,
-      queryParameters: queryParameters,
-      options: options,
-    );
-    LogUtil.i("------http result: $response");
-    if (response.statusCode == 200) {
-      ApiResponse<T> apiResponse =
-          ApiResponse.fromJson(json.decode(response.data));
-      if (apiResponse.code == 0) {
-        return apiResponse.data;
+
+    if (!_isNative) {
+      Response response = await _dio.request(
+        path,
+        data: data,
+        queryParameters: queryParameters,
+        options: options,
+      );
+      LogUtil.i("------http result: $response");
+      if (response.statusCode == 200) {
+        ApiResponse<T> apiResponse =
+            ApiResponse.fromJson(json.decode(response.data));
+        if (apiResponse.code == 0) {
+          return apiResponse.data;
+        } else {
+          throw ResultException(apiResponse.message);
+        }
       } else {
-        throw ResultException(apiResponse.message);
+        throw RequestException(response.statusCode, response.statusMessage);
       }
     } else {
-      throw RequestException(response.statusCode, response.statusMessage);
+      Map<String, dynamic> arg = new Map();
+      arg["path"] = path;
+      arg["method"] = method;
+      if (queryParameters != null) {
+        arg["queryParameters"] = queryParameters;
+      }
+      if (data != null) {
+        arg["data"] = data;
+      }
+      String result =
+          await _methodChannel.invokeMethod<String>("doHttpRequest", arg);
+      LogUtil.i("----native--http result: $result");
+      ApiResponse<T> apiResponse = ApiResponse.fromJson(json.decode(result));
+      return apiResponse.data;
     }
   }
 }
