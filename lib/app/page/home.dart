@@ -104,8 +104,8 @@ typedef void ItemCallback(Map<String, dynamic> item);
 class _DataListItem extends StatelessWidget {
   const _DataListItem({
     Key key,
-    this.item,
-    this.itemCallback,
+    @required this.item,
+    @required this.itemCallback,
   }) : super(key: key);
 
   final Map<String, dynamic> item;
