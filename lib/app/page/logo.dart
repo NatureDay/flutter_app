@@ -100,11 +100,17 @@ class _LogoPageState extends State<LogoPage> with WidgetsBindingObserver {
       item["age"] = "$i";
       data.add(item);
     }
+//    Navigator.pushAndRemoveUntil(
+//      context,
+//      new MaterialPageRoute(
+//          builder: (BuildContext context) => new HomePage(data: data)),
+//      ModalRoute.withName(AppRoutes.home),
+//    );
     Navigator.pushAndRemoveUntil(
       context,
       new MaterialPageRoute(
           builder: (BuildContext context) => new HomePage(data: data)),
-      ModalRoute.withName(AppRoutes.home),
+      (Route<dynamic> route) => false,
     );
   }
 }
