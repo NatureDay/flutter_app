@@ -12,7 +12,7 @@ class InfoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      body: Stack(
+      body: Column(
         children: <Widget>[
           ListTile(
             title: Text(data["name"]),
