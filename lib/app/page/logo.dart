@@ -101,9 +101,10 @@ class _LogoPageState extends State<LogoPage> with WidgetsBindingObserver {
       data.add(item);
     }
     Navigator.pushAndRemoveUntil(
-        context,
-        new MaterialPageRoute(
-            builder: (BuildContext context) => new HomePage(data: data)),
-        ModalRoute.withName(AppRoutes.home));
+      context,
+      new MaterialPageRoute(
+          builder: (BuildContext context) => new HomePage(data: data)),
+      ModalRoute.withName(AppRoutes.home),
+    );
   }
 }
