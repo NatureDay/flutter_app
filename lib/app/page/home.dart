@@ -19,6 +19,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   ScrollController _controller = new ScrollController();
+  DateTime _lastPress;
 
   @override
   Widget build(BuildContext context) {
@@ -37,18 +38,31 @@ class _HomePageState extends State<HomePage> {
             child: Text("暂无数据 "),
             alignment: Alignment.center,
           )
-        : RefreshIndicator(
-            onRefresh: _doRefresh,
-            child: ListView(
-              children: widget.data.map((Map<String, dynamic> item) {
-                return _DataListItem(
-                  item: item,
-                  itemCallback: _handleCallBack,
-                );
-              }).toList(),
-              controller: _controller,
+        : WillPopScope(
+            child: RefreshIndicator(
+              onRefresh: _doRefresh,
+              child: ListView(
+                children: widget.data.map((Map<String, dynamic> item) {
+                  return _DataListItem(
+                    item: item,
+                    itemCallback: _handleCallBack,
+                  );
+                }).toList(),
+                controller: _controller,
+              ),
             ),
-          );
+            onWillPop: _willPop);
+  }
+
+  Future<bool> _willPop() {
+    var now = DateTime.now();
+    if (_lastPress == null ||
+        now.difference(_lastPress) > Duration(seconds: 2)) {
+      AlertUtil.showToast("再按一次退出应用");
+      _lastPress = now;
+      return Future<bool>.value(false);
+    }
+    return Future<bool>.value(true);
   }
 
   @override
