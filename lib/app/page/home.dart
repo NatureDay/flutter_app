@@ -26,6 +26,7 @@ class _HomePageState extends State<HomePage> {
     // TODO: implement build
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
         items: _navigationItems,
         selectedItemColor: Colors.lightBlue,
         unselectedItemColor: Colors.grey,
