@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_app/app/page/home.dart';
-
 import 'dart:async';
-import 'package:flutter_app/app/util/app_util.dart';
-import 'package:flutter_app/app/router/app_routes.dart';
+import 'package:flutter/material.dart';
+
+import 'home.dart';
+import '../util/app_util.dart';
+import '../router/app_routes.dart';
 
 class LogoPage extends StatefulWidget {
   @override
@@ -92,14 +92,14 @@ class _LogoPageState extends State<LogoPage> with WidgetsBindingObserver {
   }
 
   void _goHome() {
-    List<Map<String, dynamic>> data = new List();
-    for (int i = 0; i < 50; i++) {
-      Map<String, dynamic> item = new Map();
-      item["name"] = "姓名啊$i";
-      item["address"] = "地址是XXXXXXXXXX$i";
-      item["age"] = "$i";
-      data.add(item);
-    }
+//    List<Map<String, dynamic>> data = new List();
+//    for (int i = 0; i < 50; i++) {
+//      Map<String, dynamic> item = new Map();
+//      item["name"] = "姓名啊$i";
+//      item["address"] = "地址是XXXXXXXXXX$i";
+//      item["age"] = "$i";
+//      data.add(item);
+//    }
 //    Navigator.pushAndRemoveUntil(
 //      context,
 //      new MaterialPageRoute(
@@ -108,8 +108,7 @@ class _LogoPageState extends State<LogoPage> with WidgetsBindingObserver {
 //    );
     Navigator.pushAndRemoveUntil(
       context,
-      new MaterialPageRoute(
-          builder: (BuildContext context) => new HomePage(data: data)),
+      new MaterialPageRoute(builder: (BuildContext context) => new HomePage()),
       (Route<dynamic> route) => false,
     );
   }

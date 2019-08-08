@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_app/app/api/api.dart';
-import 'package:flutter_app/app/app.dart';
-import 'package:flutter_app/app/http/http_util.dart';
-import 'package:flutter_app/app/router/app_routes.dart';
-import 'package:flutter_app/app/util/alert_util.dart';
-import 'package:flutter_app/app/util/encrypt_util.dart';
-import 'package:flutter_app/app/util/log_util.dart';
+import '../api/api.dart';
+import '../app.dart';
+import '../http/http_util.dart';
+import '../router/app_routes.dart';
+import '../util/alert_util.dart';
+import '../util/encrypt_util.dart';
 
 import 'home.dart';
 
@@ -136,18 +135,18 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _goHome() {
-    List<Map<String, dynamic>> data = new List();
-    for (int i = 0; i < 50; i++) {
-      Map<String, dynamic> item = new Map();
-      item["name"] = "姓名啊$i";
-      item["address"] = "地址是XXXXXXXXXX$i";
-      item["age"] = "$i";
-      data.add(item);
-    }
+//    List<Map<String, dynamic>> data = new List();
+//    for (int i = 0; i < 50; i++) {
+//      Map<String, dynamic> item = new Map();
+//      item["name"] = "姓名啊$i";
+//      item["address"] = "地址是XXXXXXXXXX$i";
+//      item["age"] = "$i";
+//      data.add(item);
+//    }
     Navigator.pushAndRemoveUntil(
         context,
         new MaterialPageRoute(
-            builder: (BuildContext context) => new HomePage(data: data)),
+            builder: (BuildContext context) => new HomePage()),
         ModalRoute.withName(AppRoutes.home));
   }
 
