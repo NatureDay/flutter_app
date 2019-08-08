@@ -157,10 +157,10 @@ class _FirstPageState extends State<FirstPage> {
   void initState() {
     super.initState();
     _controller.addListener(() {
-      LogUtil.i("--------maxScrollExtent---======" +
-          _controller.position.maxScrollExtent.toString());
-      LogUtil.i("--------maxScrollExtent--pixels-======" +
-          _controller.position.pixels.toString());
+//      LogUtil.i("--------maxScrollExtent---======" +
+//          _controller.position.maxScrollExtent.toString());
+//      LogUtil.i("--------maxScrollExtent--pixels-======" +
+//          _controller.position.pixels.toString());
     });
   }
 
