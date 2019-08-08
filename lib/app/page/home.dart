@@ -222,20 +222,59 @@ class _SecondPageState extends State<SecondPage> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      appBar: AppBar(
-        title: Text("个人中心"),
-      ),
+//      appBar: AppBar(
+//        title: Text("个人中心"),
+//      ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          SizedBox(height: 25),
           Container(
-            width: double.infinity,
-            height: 200,
-            child: const Icon(
-              Icons.accessibility,
+            padding: EdgeInsets.only(top: 20, bottom: 20),
+            decoration: BoxDecoration(color: Colors.lightBlue),
+            child: Align(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Image.asset(
+                    "assets/images/ic_default_head.png",
+                    width: 100,
+                    height: 100,
+                    fit: BoxFit.scaleDown,
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    "个人信息",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ],
+              ),
             ),
           ),
           SizedBox(height: 20),
-          Text("个人信息"),
+          ListTile(
+            leading: const Icon(Icons.message),
+            title: Text("个人信息"),
+            trailing: const Icon(Icons.keyboard_arrow_right),
+          ),
+          Divider(height: 1, color: Colors.black, indent: 16, endIndent: 16),
+          ListTile(
+            leading: const Icon(Icons.attach_money),
+            title: Text("消费记录"),
+            trailing: const Icon(Icons.keyboard_arrow_right),
+          ),
+          Divider(height: 1, color: Colors.black, indent: 16, endIndent: 16),
+          ListTile(
+            leading: const Icon(Icons.backup),
+            title: Text("版本更新"),
+            trailing: const Icon(Icons.keyboard_arrow_right),
+          ),
+          Divider(height: 1, color: Colors.black, indent: 16, endIndent: 16),
+          ListTile(
+            leading: const Icon(Icons.settings),
+            title: Text("设置"),
+            trailing: const Icon(Icons.keyboard_arrow_right),
+          ),
         ],
       ),
     );
