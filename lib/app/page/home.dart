@@ -21,12 +21,22 @@ class _HomePageState extends State<HomePage> {
   ScrollController _controller = new ScrollController();
   DateTime _lastPress;
 
+  List<BottomNavigationBarItem> _navigationItems;
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(title: Text("首页")),
       body: createView(),
+      bottomNavigationBar: BottomNavigationBar(
+        items: _navigationItems,
+        selectedItemColor: Colors.lightBlue,
+        unselectedItemColor: Colors.grey,
+        onTap: (index) {
+          print("-----index----: $index");
+        },
+      ),
     );
   }
 
@@ -74,6 +84,29 @@ class _HomePageState extends State<HomePage> {
       LogUtil.i("--------maxScrollExtent--pixels-======" +
           _controller.position.pixels.toString());
     });
+
+    _navigationItems = <BottomNavigationBarItem>[
+      BottomNavigationBarItem(
+        title: Text("首页"),
+        icon: const Icon(
+          Icons.home,
+        ),
+        activeIcon: const Icon(
+          Icons.home,
+        ),
+        backgroundColor: Colors.white,
+      ),
+      BottomNavigationBarItem(
+        title: Text("用户"),
+        icon: const Icon(
+          Icons.account_box,
+        ),
+        activeIcon: const Icon(
+          Icons.account_box,
+        ),
+        backgroundColor: Colors.white,
+      ),
+    ];
   }
 
   @override
