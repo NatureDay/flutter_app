@@ -20,6 +20,11 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+    ThemeData themeData = ThemeData.light().copyWith(
+      primaryColor: Colors.lightBlue,
+      accentColor: Colors.indigo,
+    );
+
     return new MaterialApp(
 //      title: 'Welcome to Flutter',
 //      home: new Scaffold(
@@ -33,12 +38,7 @@ class _MyAppState extends State<MyApp> {
 //        ),
 //      ),
       title: 'flutter app demo',
-      theme: new ThemeData(
-//        primarySwatch: Colors.lightBlue,
-//        primaryColor: Colors.lightBlue,
-//        accentColor: Colors.lightBlue,
-//        appBarTheme: AppBarTheme(textTheme: TextTheme()),
-      ),
+      theme: themeData,
       home: new LogoPage(),
       initialRoute: AppRoutes.logo,
       routes: AppRoutes.initRoutes(),
