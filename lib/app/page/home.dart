@@ -155,6 +155,7 @@ class _FirstPageState extends State<FirstPage> {
 
   Future<void> _doRefresh() async {
     LogUtil.i("-------doRefresh--------");
+    AlertUtil.showToast("刷新完成了");
   }
 
   @override
