@@ -256,24 +256,36 @@ class _SecondPageState extends State<SecondPage> {
             leading: const Icon(Icons.message),
             title: Text("个人信息"),
             trailing: const Icon(Icons.keyboard_arrow_right),
+            onTap: () {
+              AlertUtil.showToast("个人信息");
+            },
           ),
           Divider(height: 1, color: Colors.black, indent: 16, endIndent: 16),
           ListTile(
             leading: const Icon(Icons.attach_money),
             title: Text("消费记录"),
             trailing: const Icon(Icons.keyboard_arrow_right),
+            onTap: () {
+              AlertUtil.showToast("消费记录");
+            },
           ),
           Divider(height: 1, color: Colors.black, indent: 16, endIndent: 16),
           ListTile(
             leading: const Icon(Icons.backup),
             title: Text("版本更新"),
             trailing: const Icon(Icons.keyboard_arrow_right),
+            onTap: () {
+              AlertUtil.showToast("版本更新");
+            },
           ),
           Divider(height: 1, color: Colors.black, indent: 16, endIndent: 16),
           ListTile(
             leading: const Icon(Icons.settings),
             title: Text("设置"),
             trailing: const Icon(Icons.keyboard_arrow_right),
+            onTap: () {
+              AlertUtil.showToast("设置");
+            },
           ),
         ],
       ),
