@@ -126,7 +126,11 @@ class _FirstPageState extends State<FirstPage> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      appBar: AppBar(title: Text("首页")),
+      appBar: PreferredSize(
+          child: AppBar(
+            title: Text("首页"),
+          ),
+          preferredSize: Size.fromHeight(44)),
       body: createView(),
     );
   }
