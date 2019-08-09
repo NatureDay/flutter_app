@@ -276,7 +276,7 @@ class _SecondPageState extends State<SecondPage> {
                   ),
                   SizedBox(height: 10),
                   Text(
-                    "个人信息",
+                    "张三啊",
                     style: TextStyle(color: Colors.white),
                   ),
                 ],
