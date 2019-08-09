@@ -22,7 +22,7 @@ class _MyAppState extends State<MyApp> {
     // TODO: implement build
     ThemeData themeData = ThemeData.light().copyWith(
       primaryColor: Colors.lightBlue,
-      accentColor: Colors.indigo,
+      accentColor: Colors.red,
     );
     return new MaterialApp(
 //      title: 'Welcome to Flutter',
