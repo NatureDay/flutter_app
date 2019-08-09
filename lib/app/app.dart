@@ -160,7 +160,7 @@ class AppInfoHelper {
   /**
    * 清除应用数据，通常用于退出登录
    */
-  void clearAppData() {
+  Future<void> clearAppData() async {
     this._loginInfo = null;
     this._userInfo = null;
     SpUtil.instance.then((value) {

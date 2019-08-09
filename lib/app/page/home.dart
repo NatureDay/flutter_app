@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app/app/util/alert_util.dart';
 import 'package:flutter_app/app/util/log_util.dart';
 
+import '../app.dart';
 import 'info.dart';
 
 /// 主页
@@ -71,6 +74,7 @@ class _HomePageState extends State<HomePage> {
       item["name"] = "姓名啊$i";
       item["address"] = "地址是XXXXXXXXXX$i";
       item["age"] = "$i";
+      item["index"] = i;
       data.add(item);
     }
     _pages = <Widget>[
@@ -185,7 +189,7 @@ class _FirstPageState extends State<FirstPage> {
 
 typedef void ItemCallback(Map<String, dynamic> item);
 
-class _DataListItem extends StatelessWidget {
+class _DataListItem extends StatefulWidget {
   _DataListItem({
     Key key,
     @required this.item,
@@ -194,20 +198,43 @@ class _DataListItem extends StatelessWidget {
 
   final Map<String, dynamic> item;
   final ItemCallback itemCallback;
+
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return new _DataListItemState();
+  }
+}
+
+class _DataListItemState extends State<_DataListItem> {
   bool _isSelected;
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    _isSelected = item["isSelected"] ?? false;
+    bool isSingle = widget.item["index"] % 2 == 0;
+    _isSelected = widget.item["isSelected"] ?? false;
+    var iconData = _isSelected
+        ? const Icon(
+            Icons.favorite,
+            color: Colors.lightBlue,
+          )
+        : const Icon(
+            Icons.favorite_border,
+            color: Colors.grey,
+          );
     return ListTile(
-      title: Text(item["name"]),
-      subtitle: Text(item["address"]),
-      trailing: _isSelected
-          ? const Icon(Icons.favorite)
-          : const Icon(Icons.favorite_border),
+      title: Text(widget.item["name"]),
+      subtitle: Text(widget.item["address"]),
+      trailing: !isSingle ? iconData : null,
       onTap: () {
-        itemCallback(item);
+        if (isSingle) {
+          widget.itemCallback(widget.item);
+        } else {
+          setState(() {
+            widget.item["isSelected"] = !_isSelected;
+          });
+        }
       },
     );
   }
@@ -290,6 +317,17 @@ class _SecondPageState extends State<SecondPage> {
             trailing: const Icon(Icons.keyboard_arrow_right),
             onTap: () {
               AlertUtil.showToast("设置");
+            },
+          ),
+          Divider(height: 1, color: Colors.black, indent: 16, endIndent: 16),
+          ListTile(
+            leading: const Icon(Icons.exit_to_app),
+            title: Text("退出登录"),
+            trailing: const Icon(Icons.keyboard_arrow_right),
+            onTap: () {
+              AppInfoHelper.instance.clearAppData().then((value) {
+                exit(0);
+              });
             },
           ),
         ],
