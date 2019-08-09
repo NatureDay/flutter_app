@@ -186,7 +186,7 @@ class _FirstPageState extends State<FirstPage> {
 typedef void ItemCallback(Map<String, dynamic> item);
 
 class _DataListItem extends StatelessWidget {
-  const _DataListItem({
+  _DataListItem({
     Key key,
     @required this.item,
     @required this.itemCallback,
@@ -194,13 +194,18 @@ class _DataListItem extends StatelessWidget {
 
   final Map<String, dynamic> item;
   final ItemCallback itemCallback;
+  bool _isSelected;
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+    _isSelected = item["isSelected"] ?? false;
     return ListTile(
       title: Text(item["name"]),
       subtitle: Text(item["address"]),
+      trailing: _isSelected
+          ? const Icon(Icons.favorite)
+          : const Icon(Icons.favorite_border),
       onTap: () {
         itemCallback(item);
       },

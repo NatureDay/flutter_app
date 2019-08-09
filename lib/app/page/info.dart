@@ -12,6 +12,7 @@ class InfoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+      appBar: AppBar(title: Text("详细信息")),
       body: Column(
         children: <Widget>[
           ListTile(
