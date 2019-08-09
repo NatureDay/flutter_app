@@ -24,7 +24,6 @@ class _MyAppState extends State<MyApp> {
       primaryColor: Colors.lightBlue,
       accentColor: Colors.indigo,
     );
-
     return new MaterialApp(
 //      title: 'Welcome to Flutter',
 //      home: new Scaffold(
