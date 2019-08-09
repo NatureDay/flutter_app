@@ -34,7 +34,10 @@ class _MyAppState extends State<MyApp> {
 //      ),
       title: 'flutter app demo',
       theme: new ThemeData(
-        primaryColor: Colors.white,
+//        primarySwatch: Colors.lightBlue,
+//        primaryColor: Colors.lightBlue,
+//        accentColor: Colors.lightBlue,
+//        appBarTheme: AppBarTheme(textTheme: TextTheme()),
       ),
       home: new LogoPage(),
       initialRoute: AppRoutes.logo,
