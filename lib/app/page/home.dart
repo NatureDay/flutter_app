@@ -228,19 +228,24 @@ class _DataListItemState extends State<_DataListItem> {
             Icons.favorite_border,
             color: Colors.grey,
           );
-    return ListTile(
-      title: Text(widget.item["name"]),
-      subtitle: Text(widget.item["address"]),
-      trailing: !isSingle ? iconData : null,
-      onTap: () {
-        if (isSingle) {
-          widget.itemCallback(widget.item);
-        } else {
-          setState(() {
-            widget.item["isSelected"] = !_isSelected;
-          });
-        }
-      },
+    return Column(
+      children: <Widget>[
+        ListTile(
+          title: Text(widget.item["name"]),
+          subtitle: Text(widget.item["address"]),
+          trailing: !isSingle ? iconData : null,
+          onTap: () {
+            if (isSingle) {
+              widget.itemCallback(widget.item);
+            } else {
+              setState(() {
+                widget.item["isSelected"] = !_isSelected;
+              });
+            }
+          },
+        ),
+        Divider(height: 1),
+      ],
     );
   }
 }
