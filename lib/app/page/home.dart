@@ -280,9 +280,9 @@ class _SecondPageState extends State<SecondPage> {
                 children: <Widget>[
                   Image.asset(
                     "assets/images/ic_default_head.png",
-                    width: 100,
-                    height: 100,
-                    fit: BoxFit.scaleDown,
+                    width: 50,
+                    height: 50,
+                    fit: BoxFit.contain,
                   ),
                   SizedBox(height: 10),
                   Text(
@@ -302,7 +302,7 @@ class _SecondPageState extends State<SecondPage> {
               AlertUtil.showToast("个人信息");
             },
           ),
-          Divider(height: 1, color: Colors.black, indent: 16, endIndent: 16),
+          Divider(height: 1, indent: 16, endIndent: 16),
           ListTile(
             leading: const Icon(Icons.attach_money),
             title: Text("消费记录"),
@@ -311,7 +311,7 @@ class _SecondPageState extends State<SecondPage> {
               AlertUtil.showToast("消费记录");
             },
           ),
-          Divider(height: 1, color: Colors.black, indent: 16, endIndent: 16),
+          Divider(height: 1, indent: 16, endIndent: 16),
           ListTile(
             leading: const Icon(Icons.backup),
             title: Text("版本更新"),
@@ -320,7 +320,7 @@ class _SecondPageState extends State<SecondPage> {
               AlertUtil.showToast("版本更新");
             },
           ),
-          Divider(height: 1, color: Colors.black, indent: 16, endIndent: 16),
+          Divider(height: 1, indent: 16, endIndent: 16),
           ListTile(
             leading: const Icon(Icons.settings),
             title: Text("设置"),
@@ -329,7 +329,7 @@ class _SecondPageState extends State<SecondPage> {
               AlertUtil.showToast("设置");
             },
           ),
-          Divider(height: 1, color: Colors.black, indent: 16, endIndent: 16),
+          Divider(height: 1, indent: 16, endIndent: 16),
           ListTile(
             leading: const Icon(Icons.exit_to_app),
             title: Text("退出登录"),
