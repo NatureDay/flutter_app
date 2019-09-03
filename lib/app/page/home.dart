@@ -335,13 +335,43 @@ class _SecondPageState extends State<SecondPage> {
             title: Text("退出登录"),
             trailing: const Icon(Icons.keyboard_arrow_right),
             onTap: () {
-              AppInfoHelper.instance.clearAppData().then((value) {
-                exit(0);
-              });
+              _showExit();
             },
           ),
         ],
       ),
     );
+  }
+
+  void _showExit() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return new AlertDialog(
+            title: Text("退出登录"),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[Text("确定要退出登录吗？")],
+              ),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text("取消"),
+              ),
+              FlatButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  AppInfoHelper.instance.clearAppData().then((value) {
+                    exit(0);
+                  });
+                },
+                child: Text("确定"),
+              ),
+            ],
+          );
+        });
   }
 }
