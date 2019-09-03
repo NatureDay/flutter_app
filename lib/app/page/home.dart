@@ -1,8 +1,10 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/app/util/alert_util.dart';
 import 'package:flutter_app/app/util/log_util.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../app.dart';
 import 'info.dart';
@@ -120,7 +122,10 @@ class FirstPage extends StatefulWidget {
 }
 
 class _FirstPageState extends State<FirstPage> {
-  ScrollController _controller = new ScrollController();
+//  ScrollController _controller = new ScrollController();
+
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
 
   @override
   Widget build(BuildContext context) {
@@ -135,6 +140,33 @@ class _FirstPageState extends State<FirstPage> {
     );
   }
 
+//  Widget createView() {
+//    return widget.data == null
+//        ? Container(
+//            width: double.infinity,
+//            height: double.infinity,
+//            child: Text("暂无数据 "),
+//            alignment: Alignment.center,
+//          )
+//        : RefreshIndicator(
+//            onRefresh: _doRefresh,
+//            child: ListView(
+//              children: widget.data.map((Map<String, dynamic> item) {
+//                return _DataListItem(
+//                  item: item,
+//                  itemCallback: _handleCallBack,
+//                );
+//              }).toList(),
+////              controller: _controller,
+//            ),
+//          );
+//  }
+
+  Future<void> _doRefresh() async {
+    LogUtil.i("-------doRefresh--------");
+    AlertUtil.showToast("刷新完成了");
+  }
+
   Widget createView() {
     return widget.data == null
         ? Container(
@@ -143,8 +175,36 @@ class _FirstPageState extends State<FirstPage> {
             child: Text("暂无数据 "),
             alignment: Alignment.center,
           )
-        : RefreshIndicator(
-            onRefresh: _doRefresh,
+        : SmartRefresher(
+            enablePullDown: true,
+            enablePullUp: true,
+            header: MaterialClassicHeader(),
+            footer: ClassicFooter(
+              loadStyle: LoadStyle.ShowWhenLoading,
+            ),
+//            footer: CustomFooter(
+//              builder: (BuildContext context, LoadStatus mode) {
+//                Widget body;
+//                if (mode == LoadStatus.idle) {
+//                  body = Text("上拉加载");
+//                } else if (mode == LoadStatus.loading) {
+//                  body = CupertinoActivityIndicator();
+//                } else if (mode == LoadStatus.failed) {
+//                  body = Text("加载失败！点击重试！");
+//                } else if (mode == LoadStatus.canLoading) {
+//                  body = Text("松手,加载更多!");
+//                } else {
+//                  body = Text("没有更多数据了!");
+//                }
+//                return Container(
+//                  height: 55.0,
+//                  child: Center(child: body),
+//                );
+//              },
+//            ),
+            controller: _refreshController,
+            onRefresh: _onRefresh,
+            onLoading: _onLoading,
             child: ListView(
               children: widget.data.map((Map<String, dynamic> item) {
                 return _DataListItem(
@@ -152,31 +212,43 @@ class _FirstPageState extends State<FirstPage> {
                   itemCallback: _handleCallBack,
                 );
               }).toList(),
-              controller: _controller,
             ),
           );
   }
 
-  Future<void> _doRefresh() async {
-    LogUtil.i("-------doRefresh--------");
+  void _onRefresh() async {
+    // monitor network fetch
+    await Future.delayed(Duration(milliseconds: 1000));
+    // if failed,use refreshFailed()
+    _refreshController.refreshCompleted();
     AlertUtil.showToast("刷新完成了");
+  }
+
+  void _onLoading() async {
+    // monitor network fetch
+    await Future.delayed(Duration(milliseconds: 1000));
+    // if failed,use loadFailed(),if no data return,use LoadNodata()
+//    items.add((items.length + 1).toString());
+//    if (mounted) setState(() {});
+    _refreshController.loadComplete();
+    AlertUtil.showToast("加载完成了");
   }
 
   @override
   void initState() {
     super.initState();
-    _controller.addListener(() {
+//    _controller.addListener(() {
 //      LogUtil.i("--------maxScrollExtent---======" +
 //          _controller.position.maxScrollExtent.toString());
 //      LogUtil.i("--------maxScrollExtent--pixels-======" +
 //          _controller.position.pixels.toString());
-    });
+//    });
   }
 
   @override
   void dispose() {
     super.dispose();
-    _controller.dispose();
+//    _controller.dispose();
   }
 
   void _handleCallBack(Map<String, dynamic> item) {
