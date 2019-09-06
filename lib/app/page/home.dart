@@ -420,12 +420,13 @@ class _SecondPageState extends State<SecondPage> {
         context: context,
         builder: (BuildContext context) {
           return new AlertDialog(
-            title: Text("退出登录"),
-            content: SingleChildScrollView(
-              child: ListBody(
-                children: <Widget>[Text("确定要退出登录吗？")],
-              ),
-            ),
+//            title: Text("退出登录"),
+//            content: SingleChildScrollView(
+//              child: ListBody(
+//                children: <Widget>[Text("确定要退出登录吗？")],
+//              ),
+//            ),
+            content: Text("确定要退出登录吗？"),
             actions: <Widget>[
               FlatButton(
                 onPressed: () {
