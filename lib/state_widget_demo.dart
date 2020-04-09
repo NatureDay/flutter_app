@@ -56,6 +56,7 @@ class _CounterState extends State<Counter> {
         ),
         new Text('Count: $_counter'),
       ],
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
     );
   }
 }
