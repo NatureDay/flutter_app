@@ -13,8 +13,8 @@ class MyAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Container(
-      margin: const EdgeInsets.fromLTRB(0, 50, 0, 0),
-      height: 56.0,
+      margin: const EdgeInsets.fromLTRB(0, 25, 0, 0),
+      height: 48,
       // 单位是逻辑上的像素（并非真实的像素，类似于浏览器中的像素）
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       decoration: new BoxDecoration(color: Colors.blue[500]),
