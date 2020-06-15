@@ -1,10 +1,23 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 
 void main() {
 //  debugPaintSizeEnabled = true;
   runApp(new MyApp());
+
+  /** 设置状态栏颜色 */
+  if (Platform.isAndroid) {
+    SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+//        statusBarBrightness: Brightness.light,
+//        statusBarIconBrightness: Brightness.dark
+    );
+    SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+  }
 }
 
 class MyApp extends StatelessWidget {

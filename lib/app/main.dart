@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_app/app/app.dart';
 
 import 'package:flutter_app/app/router/app_routes.dart';
@@ -6,6 +9,16 @@ import 'package:flutter_app/app/page/logo.dart';
 
 void main() {
   runApp(new MyApp());
+
+  /** 设置状态栏颜色 */
+  if (Platform.isAndroid) {
+    SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
+      statusBarColor: Colors.blue,
+//        statusBarBrightness: Brightness.light,
+//        statusBarIconBrightness: Brightness.dark
+    );
+    SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+  }
 }
 
 class MyApp extends StatefulWidget {
