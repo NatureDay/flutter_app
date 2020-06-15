@@ -29,7 +29,10 @@ class MyAppBar extends StatelessWidget {
           ),
           // Expanded expands its child to fill the available space.
           new Expanded(
-            child: title,
+            child: new Container(
+              color: Colors.red,
+              child: title,
+            ),
           ),
           new IconButton(
             icon: new Icon(Icons.search),
