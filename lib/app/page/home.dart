@@ -172,7 +172,7 @@ class _FirstPageState extends State<FirstPage> {
         ? Container(
             width: double.infinity,
             height: double.infinity,
-            child: Text("暂无数据 "),
+            child: Text("暂无数据"),
             alignment: Alignment.center,
           )
         : SmartRefresher(

@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
 //      ),
       title: 'Startup Name Generator',
       theme: new ThemeData(
-        primaryColor: Colors.white,
+        primaryColor: Colors.blue,
       ),
       home: new RandomWords(),
     );
@@ -68,7 +68,11 @@ class RandomWordsState extends State<RandomWords> {
       appBar: new AppBar(
         title: new Text('Startup Name Generator'),
         actions: <Widget>[
-          new IconButton(icon: new Icon(Icons.list), onPressed: _pushSaved),
+          new Offstage(
+            offstage: false,
+            child: new IconButton(
+                icon: new Icon(Icons.list), onPressed: _pushSaved),
+          ),
         ],
       ),
       body: _buildSuggestions(),
