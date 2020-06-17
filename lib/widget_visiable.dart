@@ -42,7 +42,9 @@ class TestPageState extends State<TestPage> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               new RaisedButton(
-                  onPressed: _changeFirst, child: new Text("Offstage方式")),
+                onPressed: _changeFirst,
+                child: new Text("Offstage方式"),
+              ),
               new Offstage(
                 offstage: _firstVisiable,
                 child: new Icon(Icons.airplanemode_active),
@@ -53,7 +55,9 @@ class TestPageState extends State<TestPage> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               new RaisedButton(
-                  onPressed: _changeSecond, child: new Text("Visibility方式")),
+                onPressed: _changeSecond,
+                child: new Text("Visibility方式"),
+              ),
               new Visibility(
                 visible: _secondVisiable,
                 maintainState: true,
