@@ -6,4 +6,8 @@ class LogUtil {
   static i(Object object) {
     print(object);
   }
+
+  static e(Object object) {
+    print(object);
+  }
 }
