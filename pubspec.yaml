@@ -37,6 +37,7 @@ dependencies:
   pull_to_refresh: ^1.5.8
   flutter_redux: ^0.6.0
   location: ^3.0.2
+  crypto: ^2.1.4
 
 dev_dependencies:
   flutter_test:
