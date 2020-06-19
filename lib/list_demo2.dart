@@ -34,7 +34,7 @@ class _SampleAppPageState extends State<SampleAppPage> {
   void initState() {
     super.initState();
     LogUtil.i("----------initState-----------");
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < 40; i++) {
       widgets.add(getRow(i));
     }
   }
@@ -42,11 +42,14 @@ class _SampleAppPageState extends State<SampleAppPage> {
   Widget getRow(int i) {
     return new GestureDetector(
       child: new Padding(
-          padding: new EdgeInsets.all(10.0), child: new Text("Row $i")),
+        padding: new EdgeInsets.all(10.0),
+        child: new Text("Row $i"),
+      ),
       onTap: () {
         setState(() {
-          widgets = new List.from(widgets);
-          widgets.add(getRow(widgets.length + 1));
+          widgets.add(
+            getRow(widgets.length + 1),
+          );
         });
       },
     );
@@ -60,7 +63,12 @@ class _SampleAppPageState extends State<SampleAppPage> {
       appBar: new AppBar(
         title: new Text('List demo'),
       ),
-      body: new ListView(children: widgets),
+      body: new ListView.builder(
+        itemCount: widgets.length,
+        itemBuilder: (BuildContext context, int position) {
+          return getRow(position);
+        },
+      ),
     );
   }
 

@@ -205,14 +205,24 @@ class _FirstPageState extends State<FirstPage> {
             controller: _refreshController,
             onRefresh: _onRefresh,
             onLoading: _onLoading,
-            child: ListView(
-              children: widget.data.map((Map<String, dynamic> item) {
-                return _DataListItem(
-                  item: item,
-                  itemCallback: _handleCallBack,
-                );
-              }).toList(),
-            ),
+            /// ListView.builder模式
+            child: new ListView.builder(
+                itemCount: widget.data.length,
+                itemBuilder: (BuildContext context, int position) {
+                  return new _DataListItem(
+                    item: widget.data[position],
+                    itemCallback: _handleCallBack,
+                  );
+                }),
+
+//            child: ListView(
+//              children: widget.data.map((Map<String, dynamic> item) {
+//                return _DataListItem(
+//                  item: item,
+//                  itemCallback: _handleCallBack,
+//                );
+//              }).toList(),
+//            ),
           );
   }
 

@@ -28,7 +28,7 @@ class CommonUtil {
   }
 
   /// 页面返回
-  static bool pop<T>(BuildContext context, [T result]) {
-    return Navigator.pop(context, {result: result});
+  static void pop<T>(BuildContext context, [T result]) {
+    Navigator.pop(context, {result: result});
   }
 }
