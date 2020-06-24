@@ -182,7 +182,14 @@ packages:
       name: dio
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.2.2"
+    version: "3.0.9"
+  dio_cookie_manager:
+    dependency: "direct main"
+    description:
+      name: dio_cookie_manager
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.0"
   english_words:
     dependency: "direct main"
     description:
@@ -203,7 +210,7 @@ packages:
       name: file
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "5.2.0"
+    version: "5.2.1"
   fixnum:
     dependency: transitive
     description:
@@ -540,7 +547,7 @@ packages:
       name: pull_to_refresh
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.5.8"
+    version: "1.6.0"
   quiver:
     dependency: transitive
     description:
@@ -589,7 +596,7 @@ packages:
       name: shelf
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.7.6"
+    version: "0.7.7"
   shelf_web_socket:
     dependency: transitive
     description:

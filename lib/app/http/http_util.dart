@@ -124,7 +124,7 @@ class HttpUtil {
     method = method ?? GET;
     Options options = new Options(
         method: method,
-        contentType: method == GET ? _FORM : ContentType.json,
+        contentType: method == GET ? _FORM.value : ContentType.json.value,
         responseType: ResponseType.plain);
 
     if (!_isNative) {
