@@ -109,6 +109,23 @@ class HttpUtil {
     );
   }
 
+  void post<T>(
+    String path, {
+    data,
+    Map<String, dynamic> queryParameters,
+    Function(T data) onSuccess,
+    Function(String error) onError,
+  }) async {
+    _request(
+      path,
+      method: POST,
+      data: data,
+      queryParameters: queryParameters,
+      onSuccess: onSuccess,
+      onError: onError,
+    );
+  }
+
   void put<T>(
     String path, {
     data,
