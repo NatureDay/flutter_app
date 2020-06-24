@@ -114,24 +114,33 @@ class _LoginPageState extends State<LoginPage> {
     queryParameters['grant_type'] = "password";
     queryParameters['scope'] = "server";
     queryParameters['type'] = "5";
-    HttpUtil.instance
-        .post<Map<String, dynamic>>(Api.login, queryParameters: queryParameters)
-        .then((value) {
+    HttpUtil.instance.post<Map<String, dynamic>>(Api.login,
+        queryParameters: queryParameters, onSuccess: (value) {
       AppInfoHelper.instance.saveAppLoginInfo(value);
       _getUserInfo();
-    }, onError: (e) {
-      AlertUtil.showToast(NetworkErrorHelper.getMessage(e));
     });
+
+//        .then((value) {
+//      AppInfoHelper.instance.saveAppLoginInfo(value);
+//      _getUserInfo();
+//    }, onError: (e) {
+//      AlertUtil.showToast(NetworkErrorHelper.getMessage(e));
+//    });
   }
 
   void _getUserInfo() {
-    HttpUtil.instance.get<Map<String, dynamic>>(Api.userInfo).then((value) {
+    HttpUtil.instance.get<Map<String, dynamic>>(Api.userInfo,
+        onSuccess: (value) {
       AppInfoHelper.instance.saveUserInfo(value);
       _goHome();
-      // Navigator.popAndPushNamed(context, AppRoutes.home);
-    }, onError: (e) {
-      AlertUtil.showToast(NetworkErrorHelper.getMessage(e));
     });
+//        .then((value) {
+//      AppInfoHelper.instance.saveUserInfo(value);
+//      _goHome();
+//      // Navigator.popAndPushNamed(context, AppRoutes.home);
+//    }, onError: (e) {
+//      AlertUtil.showToast(NetworkErrorHelper.getMessage(e));
+//    });
   }
 
   void _goHome() {

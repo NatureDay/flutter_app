@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_app/app/util/alert_util.dart';
 
 import '../app.dart';
 import '../config.dart';
@@ -53,6 +54,8 @@ class HttpUtil {
 
   static final String GET = "get";
   static final String POST = "post";
+  static final String PUT = "put";
+  static final String DELETE = "delete";
 
   static HttpUtil _httpUtil;
 
@@ -91,35 +94,62 @@ class HttpUtil {
     );
   }
 
-  Future<T> get<T>(
+  void get<T>(
     String path, {
     Map<String, dynamic> queryParameters,
+    Function(T data) onSuccess,
+    Function(String error) onError,
   }) async {
-    return _request(
+    _request(
       path,
       method: GET,
       queryParameters: queryParameters,
+      onSuccess: onSuccess,
+      onError: onError,
     );
   }
 
-  Future<T> post<T>(
+  void put<T>(
     String path, {
     data,
     Map<String, dynamic> queryParameters,
+    Function(T data) onSuccess,
+    Function(String error) onError,
   }) async {
-    return _request(
+    _request(
       path,
-      method: POST,
+      method: PUT,
       data: data,
       queryParameters: queryParameters,
+      onSuccess: onSuccess,
+      onError: onError,
     );
   }
 
-  Future<T> _request<T>(
+  void delete<T>(
+    String path, {
+    data,
+    Map<String, dynamic> queryParameters,
+    Function(T data) onSuccess,
+    Function(String error) onError,
+  }) async {
+    _request(
+      path,
+      method: DELETE,
+      data: data,
+      queryParameters: queryParameters,
+      onSuccess: onSuccess,
+      onError: onError,
+    );
+  }
+
+  void _request<T>(
     String path, {
     String method,
     data,
     Map<String, dynamic> queryParameters,
+    Function(T data) onSuccess,
+    Function(String error) onError,
   }) async {
     method = method ?? GET;
     Options options = new Options(
@@ -127,25 +157,72 @@ class HttpUtil {
         contentType: method == GET ? _FORM.value : ContentType.json.value,
         responseType: ResponseType.plain);
 
+    /// 判断是否采用系统请求
     if (!_isNative) {
-      Response response = await _dio.request(
+      _dio
+          .request(
         path,
         data: data,
         queryParameters: queryParameters,
         options: options,
-      );
-      LogUtil.i("------http result: $response");
-      if (response.statusCode == 200) {
-        ApiResponse<T> apiResponse =
-            ApiResponse.fromJson(json.decode(response.data));
-        if (apiResponse.code == 0) {
-          return apiResponse.data;
+      )
+          .then((response) {
+        LogUtil.i("------http result: $response");
+        if (response.statusCode == 200) {
+          ApiResponse<T> apiResponse =
+              ApiResponse.fromJson(json.decode(response.data));
+          if (apiResponse.code == 0) {
+            if (onSuccess != null) onSuccess(apiResponse.data);
+          } else {
+            /// throw ResultException(apiResponse.message);
+            if (onError == null) {
+              AlertUtil.showToast(apiResponse.message);
+            } else {
+              onError(apiResponse.message);
+            }
+          }
         } else {
-          throw ResultException(apiResponse.message);
+          /// throw RequestException(response.statusCode, response.statusMessage);
+          if (onError == null) {
+            AlertUtil.showToast(
+                RequestException(response.statusCode, response.statusMessage)
+                    .toString());
+          } else {
+            onError(
+                RequestException(response.statusCode, response.statusMessage)
+                    .toString());
+          }
         }
-      } else {
-        throw RequestException(response.statusCode, response.statusMessage);
-      }
+      }).catchError((e) {
+        if (onError == null) {
+          AlertUtil.showToast(NetworkErrorHelper.getMessage(e));
+        } else {
+          onError(NetworkErrorHelper.getMessage(e));
+        }
+      });
+
+//      Response response = await _dio.request(
+//        path,
+//        data: data,
+//        queryParameters: queryParameters,
+//        options: options,
+//      );
+//      LogUtil.i("------http result: $response");
+//      if (response.statusCode == 200) {
+//        ApiResponse<T> apiResponse =
+//            ApiResponse.fromJson(json.decode(response.data));
+//        if (apiResponse.code == 0) {
+//          if (onSuccess != null) onSuccess(apiResponse.data);
+//        } else {
+//          /// throw ResultException(apiResponse.message);
+//          if (onError != null) onError(apiResponse.message);
+//        }
+//      } else {
+//        /// throw RequestException(response.statusCode, response.statusMessage);
+//        if (onError != null)
+//          onError(RequestException(response.statusCode, response.statusMessage)
+//              .toString());
+//      }
     } else {
       Map<String, dynamic> arg = new Map();
       arg["path"] = path;
@@ -156,11 +233,31 @@ class HttpUtil {
       if (data != null) {
         arg["data"] = data;
       }
-      String result =
-          await _methodChannel.invokeMethod<String>("doHttpRequest", arg);
-      LogUtil.i("----native--http result: $result");
-      ApiResponse<T> apiResponse = ApiResponse.fromJson(json.decode(result));
-      return apiResponse.data;
+      _methodChannel.invokeMethod<String>("doHttpRequest", arg).then((value) {
+        LogUtil.i("----native--http result: $value");
+        ApiResponse<T> apiResponse = ApiResponse.fromJson(json.decode(value));
+        if (apiResponse.code == 0) {
+          if (onSuccess != null) onSuccess(apiResponse.data);
+        } else {
+          /// throw ResultException(apiResponse.message);
+          if (onError == null) {
+            AlertUtil.showToast(apiResponse.message);
+          } else {
+            onError(apiResponse.message);
+          }
+        }
+      }).catchError((e) {
+        if (onError == null) {
+          AlertUtil.showToast(NetworkErrorHelper.getMessage(e));
+        } else {
+          onError(NetworkErrorHelper.getMessage(e));
+        }
+      });
+//      String result =
+//          await _methodChannel.invokeMethod<String>("doHttpRequest", arg);
+//      LogUtil.i("----native--http result: $result");
+//      ApiResponse<T> apiResponse = ApiResponse.fromJson(json.decode(result));
+//      return apiResponse.data;
     }
   }
 }
